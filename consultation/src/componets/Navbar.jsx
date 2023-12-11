@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactDOM } from "react";
-import './Navbar.css'
-import uefa from '../images/download.jpeg'
+import "./Navbar.css";
+import uefa from "../images/download.jpeg";
 function Navbar() {
 
     return (
