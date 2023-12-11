@@ -32,7 +32,7 @@ const UserList = ({
             />
           </div>
           <div className="col-sm">
-            <UserItem name={user.name} />
+            <UserItem user={user} />
           </div>
           <div className="col-sm">
             <Button

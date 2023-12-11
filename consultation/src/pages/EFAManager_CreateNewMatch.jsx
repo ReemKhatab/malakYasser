@@ -1,11 +1,13 @@
-import React from 'react'
-import CreateNewMatch from '../componets/CreateNewMatch'
+import React from "react";
+import CreateNewMatch from "../componets/CreateNewMatch";
+import EFAManagerNavBar from "../componets/EFAManagerNavBar";
 function EFAManager_CreateNewMatch() {
   return (
     <div>
-      <CreateNewMatch/>
+      <EFAManagerNavBar />
+      <CreateNewMatch />
     </div>
-  )
+  );
 }
 
-export default EFAManager_CreateNewMatch
+export default EFAManager_CreateNewMatch;
