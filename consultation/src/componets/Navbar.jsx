@@ -9,9 +9,9 @@ function Navbar() {
 
             <div class="nav">
              
-                <a href="/homepage"><img src={uefa} class="brand-logo" alt="" /></a>
+                <a href="/"><img src={uefa} class="brand-logo" alt="" /></a>
                 <ul>
-                    <li><a class="active" href="#home">Home</a></li>
+                    <li><a class="active" href="/">Home</a></li>
                     <li><a href="#news">News</a></li>
                     <li><a href="/">Contact</a></li>
                     <li><a href="#about">About</a></li>

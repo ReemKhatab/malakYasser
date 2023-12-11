@@ -9,6 +9,15 @@
    overflow: hidden;
 }
 
+.seats-grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+      
+
+
 .movie__hero {
   flex: 0 0 45%;
 }

@@ -1,57 +1,63 @@
-*.navbar{
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #000000;
-    z-index: 9;
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #3DA35D;
+  z-index: 9;
 
 }
 
-.nav{
- 
-    padding: 10px 10vw;
-    display: flex;
-    justify-content: space-between;
-    
-
+.nav {
+  display: flex;
+  justify-content: space-between;
 }
 
-.brand-logo{
-    height: 60px;
-    border: #000000;
-    
-    justify-content: left;
-    float: right;
+.brand-logo {
+  height: 60px;
+  border: #000000;
 
-    
+  justify-content: left;
+  float: right;
 }
+
 .brand-logo2 {
-    height: 60px;
-    border: #000000;
-
-
+  height: 60px;
+  border: #000000;
 }
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #000000;
-  }
-  
-  li {
-    float: right;
-  }
-  
-  li a {
-    display: block;
+
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding-right: 5%;
+  overflow: hidden;
+  background-color: #3DA35D;
+}
+
+.nav li {
+  float: right;
+}
+
+.nav li a {
+  display: flex;
+  color: white;
+  text-align: center;
+  padding: 20px 15px;
+  text-decoration: none;
+}
+
+
+
+.nav li a:hover {
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .nav li a {
+    display: flex;
     color: white;
     text-align: center;
     padding: 20px 15px;
     text-decoration: none;
   }
-  
-  li a:hover {
-    color: #3DA35D;
-  }
+}
