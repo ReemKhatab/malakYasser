@@ -1,10 +1,10 @@
 import React from "react";
 import AddStadium from "../componets/AddStadium";
 import EFAManagerNavBar from "../componets/EFAManagerNavBar";
-
+import '../styles/AddStadium.css'
 function EFAManager_AddStadium() {
   return (
-    <div>
+    <div className="background">
       <EFAManagerNavBar />
       <AddStadium />
     </div>

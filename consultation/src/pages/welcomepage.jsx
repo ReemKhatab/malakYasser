@@ -8,16 +8,21 @@ import Button from "../componets/Button";
 function Welcomepage() {
   return (
     <div className="welcome" style={{ backgroundImage: `url(${stadium})` }}>
-      <div className="buttons">
-        <Link to="login">
-          <Button text="Login" class="welcomebut" />
-        </Link>
-        <Link to="homepage">
-          <Button text="View Matches" class="welcomebut" />
-        </Link>
-        <Link to="signup">
-          <Button text="SignUp" class="welcomebut" />
-        </Link>
+      <div className="title">
+        <h1>Tazkartak</h1>
+      </div>
+      <div className="contents">
+        <div className="buttons">
+          <Link to="login">
+            <Button text="Login" class="buttonclass welcomebut " />
+          </Link>
+          <Link to="homepage">
+            <Button text="Matches" class="buttonclass welcomebut" />
+          </Link>
+          <Link to="signup">
+            <Button text="SignUp" class="buttonclass welcomebut" />
+          </Link>
+        </div>
       </div>
     </div>
   );

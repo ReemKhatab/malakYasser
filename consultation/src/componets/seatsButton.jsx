@@ -4,7 +4,7 @@ import "./Button.css";
 function SeatsButton(props){
     const width  = 100 / props.coloums;
 
-    return <button className="seatbtn" style={{backgroundColor : props.booked ? "green" : "red" , flexBasis: `${width}%` }} onClick={() => props.onClick()}>
+    return <button className="seatbtn buttonclass" style={{backgroundColor : props.booked ? "green" : "red" , flexBasis: `${width}%` }} onClick={() => props.onClick()}>
         {props.text}
     </button>
 }

@@ -1,38 +1,30 @@
-import React from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 function MatchItem({ match }) {
   return (
-    <div class="container">
-      <div className="row">
-        <div class="col-sm">
-          <h3>{match.homeTeam}</h3>
+    <Card style={{ width: "18rem" }}>
+      <Card.Body>
+        <Card.Title text="primary">
+          {match.homeTeam} vs {match.awayTeam}
+        </Card.Title>
+        <Card.Text className="Venue">{match.matchVenue}</Card.Text>
+        <div className="Details">
+          <Card.Text>
+            {match.date}
+            <span style={{ marginRight: "50px" }}></span>
+            {match.time}
+          </Card.Text>
+          <Card.Text>Vacant Seats : {match.vacantSeats}</Card.Text>
+          <Card.Text>Reserved Seats : {match.reservedSeats}</Card.Text>
+          <Card.Text>
+            L1: {match.lineman1}
+            <span style={{ marginRight: "50px" }}></span>
+            L2:{match.lineman2}
+          </Card.Text>
         </div>
-        <div class="col-sm">
-          <h3>{match.awayTeam}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.matchVenue}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.date}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.time}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.lineman1}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.lineman2}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.vacantSeats}</h3>
-        </div>
-        <div class="col-sm">
-          <h3>{match.reservedSeats}</h3>
-        </div>
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 }
 

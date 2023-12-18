@@ -1,11 +1,13 @@
 import React from "react";
 import ViewMatches from "../componets/ViewMatches";
 import EFAManagerNavBar from "../componets/EFAManagerNavBar";
+import "../styles/ViewMatches.css"
+
 function EFAManager_ViewMatches() {
   return (
-    <div>
+    <div className="ViewMatches">
       <EFAManagerNavBar />
-      <h1 style={{ textAlign: "left" }} class="ml-3">Current matches</h1>
+      <h2>Current matches</h2>
       <ViewMatches />
     </div>
   );

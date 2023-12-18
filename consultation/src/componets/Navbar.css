@@ -1,17 +1,29 @@
-.navbar {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #3da35d;
-  z-index: 9;
+.bg-body-tertiary  {
+  color: white;
+  background-color: black !important;
+  text-decoration: none; 
 }
 
-.nav {
-  padding: 10px 10vw;
-  display: flex;
-  justify-content: space-between;
+.navbar a{
+  color: white;
 }
+
+.NavBarStyles :hover{
+  color:hsl(261, 72%, 55%)!important;
+}
+
+.navbar-toggler
+{
+  background-color: aliceblue;
+}
+
+.NavBarStyles button:hover {
+  color:hsl(261deg 80% 48%);
+}
+
+
+/* 
+
 
 .brand-logo {
   height: 60px;
@@ -46,4 +58,4 @@ li a {
 
 li a:hover {
   color: #3da35d;
-}
+} */

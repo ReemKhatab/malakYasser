@@ -1,32 +1,26 @@
-import React from "react";
-import { ReactDOM } from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import "./Navbar.css";
-import uefa from "../images/download.jpeg";
-function Navbar() {
+
+function NavBar() {
   return (
-    <nav class="navbar">
-      <div class="nav">
-        <a href="/">
-          <img src={uefa} class="brand-logo" alt="" />
-        </a>
-        <ul>
-          <li>
-            <a class="active" href="/">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#news">News</a>
-          </li>
-          <li>
-            <a href="/">Contact</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <Navbar expand="lg" className="bg-body-tertiary NavBarStyles">
+      <Container>
+        <Navbar.Brand  href="/">Tazkartak </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="login">Log in</Nav.Link>
+            <Nav.Link href="signup">Sign Up</Nav.Link>
+            
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
-export default Navbar;
+
+export default NavBar;

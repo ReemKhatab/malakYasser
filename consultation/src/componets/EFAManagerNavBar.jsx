@@ -1,34 +1,28 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ReorderIcon from "@mui/icons-material/Reorder";
-import "../styles/EFAManagerNavBar.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import "./Navbar.css";
 
-function EFAManagerNavBar() {
-  const [openLinks, setopenLinks] = useState(false);
-  const toggleNavbar = () => {
-    setopenLinks(!openLinks);
-  };
+function NavBar() {
   return (
-    <div className="navbar">
-      <div className="leftSide" id={openLinks ? "open" : "close"}>
-        <div className="hiddenLinks">
-          <Link to="/EFA/View">View Matches</Link>
-          <Link to="/EFA/Edit">Edit Matches</Link>
-          <Link to="/EFA/Add">Add Stadium</Link>
-          <Link to="/EFA/Create">Create Match</Link>
-        </div>
-      </div>
-      <div className="rightSide">
-        <Link to="/EFA/View">View Matches</Link>
-        <Link to="/EFA/Edit">Edit Matches</Link>
-        <Link to="/EFA/Add">Add Stadium</Link>
-        <Link to="/EFA/Create">Create Match</Link>
-        <button onClick={toggleNavbar}>
-          <ReorderIcon />
-        </button>
-      </div>
-    </div>
+    <Navbar expand="lg" className="bg-body-tertiary NavBarStyles">
+      <Container>
+        <Navbar.Brand  href="/">Tazkartak </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/EFA/View">View Matches</Nav.Link>
+            <Nav.Link href="/EFA/Edit">Edit Matches</Nav.Link>
+            <Nav.Link href="/EFA/Add">Add Stadium</Nav.Link>
+            <Nav.Link href="/EFA/Create">Create Match</Nav.Link>
+           
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default EFAManagerNavBar;
+export default NavBar;
+

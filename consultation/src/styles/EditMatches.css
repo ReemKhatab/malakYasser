@@ -1,0 +1,41 @@
+.EditMatches {
+  background-color: hsl(260, 47%, 96%);
+}
+
+.ButtonEdit {
+  font-size: x-large;
+  margin: 5%;
+  padding: 5%;
+  background-color: rgb(6, 6, 149);
+}
+
+.ButtonEdit:hover {
+  background-color: rgb(62, 62, 232);
+}
+.ButtonSubmit
+{
+  font-size: x-large;
+  margin: 2%;
+  padding: 1% 5%;
+  background-color: purple;
+}
+
+.ButtonSubmit:hover {
+  background-color: rgba(128, 0, 128, 0.674);
+}
+
+.Titles
+{
+  font-size: x-large;
+  font-weight: bold;
+}
+.Formclass
+{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.form-control {
+  width: 50% !important;
+  margin: 1%;
+}

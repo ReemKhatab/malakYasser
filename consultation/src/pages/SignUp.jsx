@@ -3,10 +3,11 @@ import { ReactDOM } from "react";
 import "./SignUp.css";
 import Button from "../componets/Button";
 import Inputbox from "../componets/Inputbox";
-
+import NavBar from "../componets/Navbar";
 function SignUp() {
   return (
     <div className="all">
+      <NavBar />
       <div className="signupcontainer">
         <div className="signup">
           <form>
@@ -33,7 +34,7 @@ function SignUp() {
               </div>
             </div>
             <center>
-              <Button text="SignUp" class="normalbut" />
+              <Button text="SignUp" class="normalbut buttonclass" />
             </center>
           </form>
         </div>
