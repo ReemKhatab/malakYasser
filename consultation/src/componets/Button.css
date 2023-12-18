@@ -1,6 +1,6 @@
 .buttonclass {
   margin: 7% 0;
-  padding: 10px 50px;
+  padding: 1% 5%;
   height: 40px;
   width: auto;
   border-radius: 50px;
@@ -14,6 +14,12 @@
   text-transform: uppercase;
   font-size: 15px;
   transition: all 0.5s ease;
+}
+.buttoncolor
+{
+  color:purple !important;
+  padding: 3% 0% !important;
+  
 }
 .seatbtn {
   margin: 1%;

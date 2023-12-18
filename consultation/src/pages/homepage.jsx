@@ -18,14 +18,15 @@ function Homepage() {
     });
   };
 
-  const coloumns = 5;
+  const coloumns = 4;
 
   console.log(seats);
   return (
     <>
     <NavBar />
+    <div className="matchcont">
+      </div>
     <div className="matches">
-     
       <div className="seats-grid">
         {seats.map((item, index) => {
           return (
@@ -42,7 +43,7 @@ function Homepage() {
           );
         })}
       </div>
-    </div>
+      </div>
     </>
   );
 }

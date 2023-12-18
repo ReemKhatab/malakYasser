@@ -1,3 +1,9 @@
+.matchcont{
+  display: flex;
+  justify-content: center;
+  height: 20%;
+}
+
 .matches{
     display: flex;
     justify-content: center;
