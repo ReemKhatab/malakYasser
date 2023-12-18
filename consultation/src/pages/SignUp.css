@@ -1,21 +1,15 @@
 .all {
-
   background-color: #000000;
   width: 100%;
   height: 100%;
-
-
 }
-.signupcontainer{
+.signupcontainer {
   background-color: #000000;
   width: auto;
   height: auto;
   display: flex;
   justify-content: center;
-
-
 }
-
 
 .signup form {
   display: flex;
@@ -34,7 +28,7 @@
   margin: 4% 0;
 }
 
-.radios{
+.radios {
   display: flex;
 }
 .signup-box {
@@ -51,10 +45,7 @@
   width: 100%;
   margin-bottom: 1%;
   padding: 1%;
-  
 }
-
-
 
 .signup-box span {
   display: flex;
@@ -63,8 +54,6 @@
   color: white;
   background-color: transparent;
 }
-
-
 
 @keyframes btn-anim1 {
   0% {
