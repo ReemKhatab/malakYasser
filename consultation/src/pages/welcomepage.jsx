@@ -1,6 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./welcomepage.css";
+import "../styles/welcomepage.css";
 import stadium from "../images/stadium.jpg";
 import { Link } from "react-router-dom";
 import Button from "../componets/Button";
@@ -9,18 +8,18 @@ function Welcomepage() {
   return (
     <div className="welcome" style={{ backgroundImage: `url(${stadium})` }}>
       <div className="title">
-        <h1>Tazkartak</h1>
+        <h1 className="heading">Tazkartak</h1>
       </div>
       <div className="contents">
         <div className="buttons">
           <Link to="login">
-            <Button text="Login" class="buttonclass welcomebut " />
+            <Button text="Login" className="buttonclass welcomebut " />
           </Link>
           <Link to="homepage">
-            <Button text="Matches" class="buttonclass welcomebut" />
+            <Button text="Matches" className="buttonclass welcomebut" />
           </Link>
           <Link to="signup">
-            <Button text="SignUp" class="buttonclass welcomebut" />
+            <Button text="SignUp" className="buttonclass welcomebut" />
           </Link>
         </div>
       </div>

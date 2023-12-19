@@ -12,25 +12,26 @@
 .ButtonEdit:hover {
   background-color: rgb(62, 62, 232);
 }
-.ButtonSubmit
-{
+
+.ButtonSubmit {
   font-size: x-large;
   margin: 2%;
   padding: 1% 5%;
-  background-color: purple;
+  background-color: hsl(261deg 80% 48%);
+  border: none;
 }
 
 .ButtonSubmit:hover {
-  background-color: rgba(128, 0, 128, 0.674);
+  background-color:  hsla(261, 80%, 48%, 0.748);
+  transform: translate3D(0,-1px,0) scale(1.15);
+  transition: all .4s ease;
 }
 
-.Titles
-{
+.Titles {
   font-size: x-large;
   font-weight: bold;
 }
-.Formclass
-{
+.Formclass {
   display: flex;
   align-items: center;
   flex-direction: column;

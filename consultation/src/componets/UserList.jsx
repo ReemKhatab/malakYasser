@@ -13,7 +13,7 @@ const UserList = ({
 }) => {
   return (
     <div className="container">
-      <div class="mb-3 " style={{ textAlign: "right" }}>
+      <div className="mb-3 " style={{ textAlign: "right" }}>
         <Button
           variant="contained"
           color="secondary"

@@ -1,6 +1,5 @@
 import React from "react";
-import { ReactDOM } from "react";
-import "./login.css";
+import "../styles/login.css";
 import Button from "../componets/Button";
 import Inputbox from "../componets/Inputbox";
 import NavBar from "../componets/Navbar";
@@ -14,7 +13,7 @@ function Login() {
             <Inputbox span="Username" type="text" boxclass="user-box" />
             <Inputbox span="Password" type="password" boxclass="user-box" />
             <center>
-              <Button text="Login" class="normalbut buttonclass" />
+              <Button text="Login" className="normalbut buttonclass" />
             </center>
           </form>
         </div>

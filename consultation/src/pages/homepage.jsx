@@ -1,8 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import logo from "../images/uefa.jpeg";
-import "./homepage.css";
-import { componentArray } from "../helpers/stadiumSeats.js";
+import "../styles/Homepage.css";
+import { componentArray } from "../helpers/stadiumSeats.jsx";
 import { useState } from "react";
 import SeatsButton from "../componets/seatsButton.jsx";
 import NavBar from "../componets/Navbar";

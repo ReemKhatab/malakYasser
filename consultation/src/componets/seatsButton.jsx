@@ -1,5 +1,5 @@
 import React from "react";
-import "./Button.css";
+import "../styles/Button.css";
 import Button from '@mui/material/Button';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
 

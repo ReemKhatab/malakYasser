@@ -11,11 +11,8 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/EFA/View">View Matches</Nav.Link>
-            <Nav.Link href="/EFA/Edit">Edit Matches</Nav.Link>
-            <Nav.Link href="/EFA/Add">Add Stadium</Nav.Link>
-            <Nav.Link href="/EFA/Create">Create Match</Nav.Link>
-           
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/">Sign Out</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

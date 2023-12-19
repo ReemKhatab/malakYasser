@@ -30,8 +30,8 @@ function AddStadium() {
     <div className="container">
       <h2>Add Stadium</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formName">
-          <label>Stadium Name</label>
+        <Form.Group className="mb-3 Formclass" controlId="formName">
+          <Form.Label className="Titles">Stadium Name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter stadium name"
@@ -41,8 +41,8 @@ function AddStadium() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formRows">
-          <Form.Label class="text-left">Number of Rows</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formRows">
+          <Form.Label className="Titles">Number of Rows</Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter number of rows"
@@ -52,8 +52,8 @@ function AddStadium() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formColumns">
-          <Form.Label class="text-left">Number of Columns</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formColumns">
+          <Form.Label className="Titles">Number of Columns</Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter number of columns"
@@ -63,8 +63,8 @@ function AddStadium() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formNumberOfSeats">
-          <Form.Label class="text-left">Number of Seats</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formNumberOfSeats">
+          <Form.Label className="Titles">Number of Seats</Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter number of seats"
@@ -74,7 +74,7 @@ function AddStadium() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className="ButtonSubmit" variant="primary" type="submit">
           Submit
         </Button>
       </Form>

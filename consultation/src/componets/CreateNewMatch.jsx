@@ -44,8 +44,8 @@ function CreateNewMatch() {
     <div className="container">
       <h2>Create New Match</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formHomeTeam">
-          <Form.Label class="text-left">Home Team</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formHomeTeam">
+          <Form.Label className="Titles">Home Team</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Home Team"
@@ -55,8 +55,8 @@ function CreateNewMatch() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formAwayTeam">
-          <Form.Label class="text-left">Away Team</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formAwayTeam">
+          <Form.Label className="Titles">Away Team</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Away Team"
@@ -66,8 +66,8 @@ function CreateNewMatch() {
           />
         </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Choose Stadium</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formStadium">
+          <Form.Label className="Titles">Choose Stadium</Form.Label>
           <Form.Control
             as="select"
             name="matchVenue"
@@ -82,8 +82,8 @@ function CreateNewMatch() {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formDate">
-          <Form.Label class="text-left">Match Date</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="formDate">
+          <Form.Label className="Titles">Match Date</Form.Label>
           <Form.Control
             type="date"
             placeholder="Enter date"
@@ -93,8 +93,8 @@ function CreateNewMatch() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="time">
-          <Form.Label class="text-left">Time</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="time">
+          <Form.Label className="Titles">Time</Form.Label>
           <Form.Control
             type="time"
             placeholder="Enter Time"
@@ -104,8 +104,8 @@ function CreateNewMatch() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="lineman1">
-          <Form.Label class="text-left">Lineman 1</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="lineman1">
+          <Form.Label className="Titles">Lineman 1</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Lineman 1"
@@ -115,8 +115,8 @@ function CreateNewMatch() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="lineman2">
-          <Form.Label class="text-left">Lineman 2</Form.Label>
+        <Form.Group className="mb-3 Formclass" controlId="lineman2">
+          <Form.Label className="Titles">Lineman 2</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Lineman 2"
@@ -125,7 +125,7 @@ function CreateNewMatch() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="ButtonSubmit" variant="primary" type="submit">
           Submit
         </Button>
       </Form>

@@ -1,3 +1,31 @@
-.background{
-    background-color: hsl(260, 47%, 96%);
+.background {
+  background-color: hsl(260, 47%, 96%);
+}
+
+.ButtonSubmit {
+  font-size: x-large;
+  margin: 2%;
+  padding: 1% 5%;
+  background-color: hsl(261deg 80% 48%);
+  border: none;
+}
+
+.ButtonSubmit:hover {
+  background-color:  hsla(261, 80%, 48%, 0.748);
+  transform: translate3D(0,-1px,0) scale(1.15);
+  transition: all .4s ease;
+}
+
+.Titles {
+  font-size: x-large;
+  font-weight: bold;
+}
+.Formclass {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.form-control {
+  width: 50% !important;
+  margin: 1%;
 }

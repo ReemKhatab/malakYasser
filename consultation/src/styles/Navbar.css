@@ -1,26 +1,32 @@
-.bg-body-tertiary  {
+.bg-body-tertiary {
   color: white;
   background-color: black !important;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
-.navbar a{
+.navbar a {
   color: white;
 }
-
-.NavBarStyles :hover{
-  color:hsl(261, 72%, 55%)!important;
+.navbar-brand {
+  font-size: 300%;
+  font-weight: bolder;
+}
+.nav-link {
+  /* text-decoration: underline; */
+  font-size: larger;
 }
 
-.navbar-toggler
-{
+.NavBarStyles :hover {
+  color: hsl(261deg 80% 48%) !important;
+}
+
+.navbar-toggler {
   background-color: aliceblue;
 }
 
 .NavBarStyles button:hover {
-  color:hsl(261deg 80% 48%);
+  color: hsl(261deg 80% 48%);
 }
-
 
 /* 
 

@@ -46,9 +46,9 @@ function EditMatch() {
   return (
     <div>
       <div className="container ">
-        <div class="row mt-5 mb-5">
+        <div className="row mt-5 mb-5">
           {Matches.map((match, index) => (
-            <div class="col-md-3">
+            <div className="col-md-3" key={index}>
               <Button
                 className="ButtonEdit"
                 variant="primary"
@@ -65,9 +65,9 @@ function EditMatch() {
           ))}
         </div>
         {displayEditForm && (
-          <Form onSubmit={handleSubmit}  >
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3 Formclass" controlId="formHomeTeam">
-              <Form.Label class="text-left Titles">Home Team</Form.Label>
+              <Form.Label className="text-left Titles">Home Team</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Home Team"
@@ -78,7 +78,7 @@ function EditMatch() {
             </Form.Group>
 
             <Form.Group className="mb-3 Formclass" controlId="formAwayTeam">
-              <Form.Label class="text-left Titles">Away Team</Form.Label>
+              <Form.Label className="text-left Titles">Away Team</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Away Team"
@@ -89,7 +89,9 @@ function EditMatch() {
             </Form.Group>
 
             <Form.Group className="mb-3 Formclass">
-              <Form.Label class="text-left Titles">Choose Stadium</Form.Label>
+              <Form.Label className="text-left Titles">
+                Choose Stadium
+              </Form.Label>
               <Form.Control
                 as="select"
                 name="matchVenue"
@@ -105,7 +107,7 @@ function EditMatch() {
             </Form.Group>
 
             <Form.Group className="mb-3 Formclass" controlId="formDate">
-              <Form.Label class="text-left Titles">Match Date</Form.Label>
+              <Form.Label className="text-left Titles">Match Date</Form.Label>
               <Form.Control
                 type="date"
                 placeholder="Enter date"
@@ -116,7 +118,7 @@ function EditMatch() {
             </Form.Group>
 
             <Form.Group className="mb-3 Formclass" controlId="time">
-              <Form.Label class="text-left Titles">Time</Form.Label>
+              <Form.Label className="text-left Titles">Time</Form.Label>
               <Form.Control
                 type="time"
                 placeholder="Enter Time"
@@ -127,7 +129,7 @@ function EditMatch() {
             </Form.Group>
 
             <Form.Group className="mb-3 Formclass" controlId="lineman1">
-              <Form.Label class="text-left Titles">Lineman 1</Form.Label>
+              <Form.Label className="text-left Titles">Lineman 1</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Lineman 1"
@@ -138,7 +140,7 @@ function EditMatch() {
             </Form.Group>
 
             <Form.Group className="mb-3 Formclass" controlId="lineman2">
-              <Form.Label class="text-left Titles">Lineman 2</Form.Label>
+              <Form.Label className="text-left Titles">Lineman 2</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Lineman 2"
