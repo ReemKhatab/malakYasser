@@ -3,6 +3,7 @@ import "../styles/welcomepage.css";
 import stadium from "../images/stadium.jpg";
 import { Link } from "react-router-dom";
 import Button from "../componets/Button";
+import "../styles/Button.css";
 
 function Welcomepage() {
   return (
@@ -13,13 +14,13 @@ function Welcomepage() {
       <div className="contents">
         <div className="buttons">
           <Link to="login">
-            <Button text="Login" className="buttonclass welcomebut " />
+            <Button text="Login" class="buttonclass welcomebut " />
           </Link>
           <Link to="homepage">
-            <Button text="Matches" className="buttonclass welcomebut" />
+            <Button text="Matches" class="buttonclass welcomebut" />
           </Link>
           <Link to="signup">
-            <Button text="SignUp" className="buttonclass welcomebut" />
+            <Button text="SignUp" class="buttonclass welcomebut" />
           </Link>
         </div>
       </div>

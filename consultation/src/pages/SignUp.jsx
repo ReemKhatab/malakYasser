@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/SignUp.css";
+import "../styles/Button.css";
 import Button from "../componets/Button";
 import Inputbox from "../componets/Inputbox";
 import NavBar from "../componets/Navbar";
@@ -33,7 +34,7 @@ function SignUp() {
               </div>
             </div>
             <center>
-              <Button text="SignUp" className="normalbut buttonclass" />
+              <Button text="SignUp" class="normalbut buttonclass" />
             </center>
           </form>
         </div>
