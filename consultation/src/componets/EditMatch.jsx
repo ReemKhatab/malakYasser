@@ -59,7 +59,10 @@ function EditMatch() {
                   setMatchData(match);
                 }}
               >
-                {match.homeTeam} VS {match.awayTeam}
+                <div>
+                  {match.homeTeam} VS {match.awayTeam}
+                </div>
+                <div>{match.date}</div>
               </Button>
             </div>
           ))}
