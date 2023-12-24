@@ -7,13 +7,15 @@
   margin: 2%;
   padding: 1% 5%;
   background-color: hsl(261deg 80% 48%);
+  --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
+  --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
   border: none;
 }
 
 .ButtonSubmit:hover {
-  background-color:  hsla(261, 80%, 48%, 0.748);
-  transform: translate3D(0,-1px,0) scale(1.15);
-  transition: all .4s ease;
+  background-color: hsla(261, 80%, 48%, 0.748);
+  transform: translate3D(0, -1px, 0) scale(1.15);
+  transition: all 0.4s ease;
 }
 
 .Titles {

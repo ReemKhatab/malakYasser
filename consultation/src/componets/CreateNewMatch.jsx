@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import {Stadiums} from "../helpers/Stadiums"
+import { Stadiums } from "../helpers/Stadiums";
 
 const initialMatchData = {
   id: 0,
@@ -10,7 +10,7 @@ const initialMatchData = {
   date: "",
   time: "",
   lineman1: "",
-  lineman2: "", 
+  lineman2: "",
   //handle when saving in database that reserved seats=0 and vacant seats=no of stadium seats
 };
 

@@ -7,14 +7,13 @@ function NavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary NavBarStyles">
       <Container>
-        <Navbar.Brand  href="/">Tazkartak </Navbar.Brand>
+        <Navbar.Brand href="/">Tazkartak </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="login">Log in</Nav.Link>
-            <Nav.Link href="signup">Sign Up</Nav.Link>
-            
+            <Nav.Link href="Login">Log in</Nav.Link>
+            <Nav.Link href="Signup">Sign Up</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

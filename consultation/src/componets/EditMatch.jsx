@@ -46,6 +46,7 @@ function EditMatch() {
   return (
     <div>
       <div className="container ">
+        <h2>Edit Matches</h2>
         <div className="row mt-5 mb-5">
           {Matches.map((match, index) => (
             <div className="col-md-3" key={index}>

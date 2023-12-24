@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Users } from "../helpers/Users";
 import { Managers } from "../helpers/Managers";
 import UserList from "../componets/UserList";
-import Button from "@mui/material/Button";
+import Button from "react-bootstrap/Button";
 import SiteAdminNavbar from "../componets/SiteAdminNavbar";
 import "../styles/SiteAdministrator.css";
-import Form from "react-bootstrap/Form";
 
 function SiteAdministrator() {
   const [users, setUsers] = useState(Users);
@@ -73,48 +72,32 @@ function SiteAdministrator() {
     <>
       <SiteAdminNavbar />
       <div className="container background">
-        <div className="row mt-5 mb-5">
+        <h2>Manage Users</h2>
+        <div className="row">
           <div className="col-sm-2">
-            <Form>
-              <Form.Check // prettier-ignore
-                size={10}
-                type="switch"
-                id="custom-switch"
-                label="Check this switch"
-              />
-              {/* function Toggle(props) {
-    const [show, setShow] = useState(true);
-    return (
-        <Form.Check
-            onClick={() => setShow(!show)}
-            type="switch"
-            id="custom-switch"
-            label={show ? 'Text1' : 'Text2'}
-        />
-    );
-   } */}
-            </Form>
             <Button
-              variant="contained"
-              color="secondary"
+              className="ButtonShow"
+              variant="primary"
+              size="lg"
               onClick={() => {
                 setDisplayCustomers(true);
                 setDisplayManagers(false);
               }}
             >
-              Customers
+              Show Customers
             </Button>
           </div>
           <div className="col-sm-2">
             <Button
-              variant="contained"
-              color="secondary"
+              className="ButtonShow"
+              variant="primary"
+              size="lg"
               onClick={() => {
                 setDisplayCustomers(false);
                 setDisplayManagers(true);
               }}
             >
-              Managers
+              Show Managers
             </Button>
           </div>
         </div>

@@ -9,7 +9,11 @@
   justify-content: center;
 }
 .card-body {
-  background-image: linear-gradient(to right, rgb(35, 35, 188) , rgba(115, 5, 115, 0.774));
+  background-image: linear-gradient(
+    to right,
+    rgb(35, 35, 188),
+    rgba(115, 5, 115, 0.774)
+  );
   border-radius: 5%;
   color: rgb(255, 255, 255);
 }
@@ -44,6 +48,6 @@ h2 {
 }
 
 .card:hover {
-  transform: translate3D(0,-1px,0) scale(1.09);
-  transition: all .4s ease;
+  transform: translate3D(0, -1px, 0) scale(1.05);
+  transition: all 0.4s ease;
 }

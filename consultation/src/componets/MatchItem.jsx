@@ -1,7 +1,9 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
+import "../styles/Matches.css";
 
-function MatchItem({ match }) {
+function MatchItem({ match, showButton, onButtonClick }) {
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>
@@ -22,6 +24,18 @@ function MatchItem({ match }) {
             <span style={{ marginRight: "50px" }}></span>
             L2:{match.lineman2}
           </Card.Text>
+          {showButton && (
+            <Link to="/Matches/ReserveTicket">
+              <Button
+                className="ButtonReserveTicket"
+                variant="primary"
+                size="lg"
+                onClick={onButtonClick}
+              >
+                Reserve Ticket
+              </Button>
+            </Link>
+          )}
         </div>
       </Card.Body>
     </Card>

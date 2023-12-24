@@ -1,9 +1,7 @@
 // UserList.js
 import React from "react";
-import Checkbox from "@mui/material/Checkbox";
-import UserItem from "../componets/UserItem";
-import Button from "@mui/material/Button";
-
+import Button from "react-bootstrap/Button";
+import { Form } from "react-bootstrap";
 const UserList = ({
   users,
   selectedUsers,
@@ -13,10 +11,11 @@ const UserList = ({
 }) => {
   return (
     <div className="container">
-      <div className="mb-3 " style={{ textAlign: "right" }}>
+      <div className="mb-3" style={{ textAlign: "right" }}>
         <Button
-          variant="contained"
-          color="secondary"
+          className="ButtonDelete"
+          variant="primary"
+          size="lg"
           onClick={handleDelete}
           disabled={selectedUsers.length === 0}
         >
@@ -25,18 +24,23 @@ const UserList = ({
       </div>
       {users.map((user, index) => (
         <div className="row" key={user.id}>
-          <div className="col-sm">
-            <Checkbox
-              checked={selectedUsers.includes(user.id)}
-              onChange={() => handleCheckboxChange(user.id)}
-            />
+          <div className="col-sm-10">
+            <Form>
+              <Form.Check // prettier-ignore
+                className="Checkboxes"
+                type={"checkbox"}
+                id={user.id}
+                label={user.name}
+                checked={selectedUsers.includes(user.id)}
+                onChange={() => handleCheckboxChange(user.id)}
+              />
+            </Form>
           </div>
-          <div className="col-sm">
-            <UserItem user={user} />
-          </div>
+
           <div className="col-sm">
             <Button
-              variant="contained"
+              className="ButtonisActivated"
+              variant="primary"
               onClick={() => toggleActivated(user.id)}
               style={{ background: user.activated ? "red" : "green" }}
             >

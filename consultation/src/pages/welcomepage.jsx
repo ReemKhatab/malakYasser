@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/welcomepage.css";
+import "../styles/Welcomepage.css";
 import stadium from "../images/stadium.jpg";
 import { Link } from "react-router-dom";
 import Button from "../componets/Button";
@@ -13,10 +13,10 @@ function Welcomepage() {
       </div>
       <div className="contents">
         <div className="buttons">
-          <Link to="login">
+          <Link to="Login">
             <Button text="Login" class="buttonclass welcomebut " />
           </Link>
-          <Link to="homepage">
+          <Link to="Matches">
             <Button text="Matches" class="buttonclass welcomebut" />
           </Link>
           <Link to="signup">

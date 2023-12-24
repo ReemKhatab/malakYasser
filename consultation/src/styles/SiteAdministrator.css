@@ -1,9 +1,45 @@
-.form-switch .form-check-input {
-  width: 4em;
-  height: 2em;
+.ButtonShow {
+  font-size: 125%;
+  background-color: rgb(6, 6, 149);
+  --bs-btn-active-bg: rgb(62, 62, 232);
+  --bs-btn-active-border-color: rgb(62, 62, 232);
+  border: none;
+}
+.ButtonShow:hover {
+  background-color: rgb(62, 62, 232);
+  transform: translate3D(0, -1px, 0) scale(1.05);
+  transition: all 0.4s ease;
+}
+.ButtonDelete {
+  font-size: x-large;
+  background-color: hsl(261deg 80% 48%);
+  --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
+  --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
+  border: none;
+}
+
+.ButtonDelete:disabled,
+.ButtonDelete[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+.ButtonDelete:hover {
+  background-color: hsla(261, 80%, 48%, 0.748);
+}
+.form-check-input {
+  border-color: hsla(261, 86%, 44%, 0.982);
 }
 .form-check-input:checked {
-    background-color: purple;
-    border-color:purple;
-    
+  background-color: hsl(261deg 80% 48%);
+  border-color: hsl(261deg 80% 48%);
+}
+.Checkboxes {
+  font-size: xx-large;
+  margin-left: 20%;
+}
+
+.ButtonisActivated {
+  font-size: large;
+  border: none;
 }

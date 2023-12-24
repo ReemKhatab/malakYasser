@@ -1,14 +1,14 @@
-.matchcont{
+.matchcont {
   display: flex;
   justify-content: center;
   height: 20%;
 }
 
-.matches{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+.matches {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .seats-grid {
@@ -16,5 +16,5 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width:70%;
+  width: 70%;
 }

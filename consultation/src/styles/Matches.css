@@ -1,0 +1,18 @@
+.ButtonReserveTicket {
+  font-weight: bold;
+  font-size: large;
+  background-color: black;
+  --bs-btn-active-bg: black;
+  --bs-btn-active-border-color: black;
+  border: none;
+}
+.ButtonReserveTicket:hover {
+  background-color: rgb(35, 19, 75);
+}
+
+.ButtonReserveTicket:disabled,
+.ButtonReserveTicket[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
