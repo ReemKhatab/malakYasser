@@ -11,6 +11,10 @@
   justify-content: center;
 }
 
+.userpad{
+  padding-top: 1rem;
+}
+
 .signup form {
   display: flex;
   width: 100%;

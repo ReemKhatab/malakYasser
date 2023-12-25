@@ -11,6 +11,14 @@
   align-content: center;
   justify-content: center;
 }
+
+.text-left{
+  color:white;
+}
+
+.input-login{
+  width : 100%;
+}
 .login-box form {
   display: flex;
   width: 100%;
@@ -63,4 +71,19 @@
   100% {
     left: 100%;
   }
+}
+
+@media (max-width: 800px) {
+  .login-box {
+    width: 50%; 
+  }
+}
+
+.SubmitLogin {
+  font-size: large;
+  margin: 2%;
+  background-color: hsl(261, 81%, 66%);
+  --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
+  --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
+  border: none;
 }
