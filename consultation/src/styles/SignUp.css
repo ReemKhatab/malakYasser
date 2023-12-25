@@ -11,6 +11,10 @@
   justify-content: center;
 }
 
+.gender-radio .form-check-label{
+  color:white;
+}
+
 .userpad{
   padding-top: 1rem;
 }

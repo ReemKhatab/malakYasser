@@ -7,6 +7,12 @@ import "../styles/Button.css";
 
 
 function Welcomepage() {
+  const Logged = localStorage.getItem("isLogged")
+
+  const toggle = () => {
+    localStorage.setItem("isLogged" , false)
+  }
+
   return (
     <div className="welcome" style={{ backgroundImage: `url(${stadium})` }}>
       <div className="title">
@@ -14,15 +20,19 @@ function Welcomepage() {
       </div>
       <div className="contents">
         <div className="buttons">
-          <Link to="Login">
+          {(Logged === "false") ? <Link to="Login">
             <Button text="Login" class="buttonclass welcomebut " />
-          </Link>
+          </Link> : <Link to="Login" onClick={toggle}>
+            <Button text="Logout" class="buttonclass welcomebut" />
+          </Link>}
           <Link to="Matches">
             <Button text="Matches" class="buttonclass welcomebut" />
           </Link>
-          <Link to="signup">
-            <Button text="SignUp" class="buttonclass welcomebut" />
-          </Link>
+          {(Logged === "false") ? <Link to="Signup">
+            <Button text="SignUp" class="buttonclass welcomebut " />
+          </Link> : <Link to="Edituser">
+            <Button text="Edit" class="buttonclass welcomebut" />
+          </Link>}
         </div>
       </div>
     </div>

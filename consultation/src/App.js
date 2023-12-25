@@ -11,6 +11,9 @@ import EFAManager_CreateNewMatch from "./pages/EFAManager_CreateNewMatch";
 import EFAManager_AddStadium from "./pages/EFAManager_AddStadium";
 import SignUp from "./pages/SignUp";
 import Welcomepage from "./pages/Welcomepage";
+import Edit from "./pages/Edituser";
+import {configureStore} from "@reduxjs/toolkit"
+
 function App() {
   return (
     <div className="App">
@@ -20,6 +23,7 @@ function App() {
           <Route path="/Matches" element={<Matches />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SignUp />} />
+          <Route path="/Edituser" element={<Edit />} />
 
           <Route path="/SiteAdministrator" element={<SiteAdministrator />} />
 

@@ -1,21 +1,32 @@
-import React from "react";
+import {React } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import "../styles/Button.css";
 import NavBar from "../componets/Navbar";
 import { Form, FormControl, FormGroup, FormLabel , Button } from "react-bootstrap";
+let LoggedIn = false;
 
 function Login() {
-
+  
+  const navigate = useNavigate()
+  LoggedIn = localStorage.getItem("isLogged")
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const username = e.currentTarget[0].value
     const pass = e.currentTarget[1].value
     console.log(username , pass)
+    // dispatch(Logintrue())
+    localStorage.setItem("isLogged" , true)
+    navigate("/Matches")
+    
   }
 
+
+  
   return (
     <div className="allpage">
-      <NavBar />
+      <NavBar /> 
       <div className="logincontainer">
         <div className="login-box">
           <Form onSubmit={handleSubmit}>
@@ -44,7 +55,7 @@ function Login() {
             </Button>
           </Form>
         </div>
-      </div>
+      </div> 
     </div>
   );
 }
