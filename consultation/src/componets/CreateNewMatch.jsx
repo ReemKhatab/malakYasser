@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Stadiums } from "../helpers/Stadiums";
+import { Teams } from "../helpers/Teams";
 
 const initialMatchData = {
   id: 0,
@@ -16,16 +17,6 @@ const initialMatchData = {
 
 function CreateNewMatch() {
   const [matchData, setMatchData] = useState(initialMatchData);
-  const [selectedStadium, setSelectedStadium] = useState("");
-
-  const handleStadiumChange = (e) => {
-    setSelectedStadium(e.target.value);
-    const { name, value } = e.target;
-    setMatchData({
-      ...matchData,
-      [name]: value,
-    });
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,40 +37,56 @@ function CreateNewMatch() {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 Formclass" controlId="formHomeTeam">
           <Form.Label className="Titles">Home Team</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Home Team"
+          <Form.Select
             name="homeTeam"
             value={matchData.homeTeam}
             onChange={handleChange}
-          />
+          >
+            <option disabled={true} value="">
+              --Choose home team--
+            </option>
+            {Teams.map((team, index) => (
+              <option key={index} value={team.teamname}>
+                {team.teamname}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3 Formclass" controlId="formAwayTeam">
           <Form.Label className="Titles">Away Team</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Away Team"
+          <Form.Select
             name="awayTeam"
             value={matchData.awayTeam}
             onChange={handleChange}
-          />
+          >
+            <option disabled={true} value="">
+              --Choose away team--
+            </option>
+            {Teams.map((team, index) => (
+              <option key={index} value={team.teamname}>
+                {team.teamname}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3 Formclass" controlId="formStadium">
           <Form.Label className="Titles">Choose Stadium</Form.Label>
-          <Form.Control
-            as="select"
+          <Form.Select
             name="matchVenue"
-            value={selectedStadium}
-            onChange={handleStadiumChange}
+            value={matchData.matchVenue}
+            onChange={handleChange}
           >
+            <option disabled={true} value="">
+              --Choose a stadium--
+            </option>
             {Stadiums.map((stadium) => (
               <option key={stadium.id} value={stadium.name}>
                 {stadium.name}
               </option>
             ))}
-          </Form.Control>
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3 Formclass" controlId="formDate">

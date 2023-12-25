@@ -1,82 +1,82 @@
-export const componentArray = [
+export const StadiumSeats = [
     {
-        seatName:"a1",
+        seatName:"1",
         booked:false,
     },
     {
-        seatName:"a2",
+        seatName:"2",
         booked:false,
     },
     {
-        seatName:"a3",
+        seatName:"3",
         booked:false,
     },
     {
-        seatName:"a4",
+        seatName:"4",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"5",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"6",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"7",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"8",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"9",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"10",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"11",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"12",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"13",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"14",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"15",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"16",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"17",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"18",
         booked:false,
     },
     {
-        seatName:"a5",
+        seatName:"19",
         booked:false,
     },
     {
-        seatName:"a6",
+        seatName:"20",
         booked:false,
     },
 ];

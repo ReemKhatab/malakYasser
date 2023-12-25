@@ -1,47 +1,89 @@
 import React from "react";
 import "../styles/ReserveTicket.css";
-import { componentArray } from "../helpers/stadiumSeats.jsx";
+import { StadiumSeats } from "../helpers/stadiumSeats.jsx";
 import { useState } from "react";
 import SeatsButton from "../componets/seatsButton.jsx";
 import NavBar from "../componets/Navbar.jsx";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Matches } from "../helpers/Matches.jsx";
+import { Form, Button, Modal } from "react-bootstrap";
+import ChooseTicket from "../componets/ChooseSeat.jsx";
+import Checkout from "../componets/Checkout.jsx";
+
+const initialCreditCardData = {
+  cardHolderName: "",
+  creditcardNumber: "",
+  CVC: "",
+};
 
 function ReserveTicket() {
-  const [seats, setSeats] = useState(componentArray);
-  const handleClick = (name) => {
-    setSeats((prevprops) => {
-      const newSeats = prevprops.map((seat) =>
-        seat.seatName === name ? { ...seat, booked: !seat.booked } : seat
-      );
-      return newSeats;
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [creditCardData, setCreditCardData] = useState(initialCreditCardData);
+
+  const [displaySeats, setDisplaySeats] = useState(true);
+  const [displayCheckout, setDisplayCheckout] = useState(false);
+
+  const [modalShow, setModalShow] = React.useState(false);
+
+  const location = useLocation();
+  const matchId = location.pathname.split("/")[3];
+  const selectedMatch = Matches.find(
+    (match) => match.id === parseInt(matchId, 10)
+  );
+  //Seats
+  const handleSelectSeats = (seats) => {
+    console.log("Selected Seats:", seats);
+    setSelectedSeats(seats);
+  };
+
+  const handleCheckout = () => {
+    setDisplaySeats(false);
+    setDisplayCheckout(true);
+  };
+
+  //Checkout
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCreditCardData({
+      ...creditCardData,
+      [name]: value,
     });
   };
 
-  const coloumns = 4;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitted:", creditCardData);
+  };
 
-  console.log(seats);
   return (
-    <>
+    <div className="ReserveTicket">
       <NavBar />
-      <div className="matchcont"></div>
-      <div className="matches">
-        <div className="seats-grid">
-          {seats.map((item, index) => {
-            return (
-              <SeatsButton
-                key={index}
-                coloums={coloumns}
-                id={index}
-                booked={item.booked}
-                text={item.seatName}
-                onClick={() => {
-                  handleClick(item.seatName);
-                }}
-              />
-            );
-          })}
-        </div>
+      <div className="Seats">
+        {displaySeats && (
+          <ChooseTicket
+            coloumns={5} // or the appropriate value
+            matchId={matchId}
+            onSelectSeats={handleSelectSeats}
+            hideSeatsShowCheckout={handleCheckout}
+          />
+        )}
       </div>
-    </>
+      <div className="Checkout">
+        {displayCheckout && (
+          <Checkout
+            selectedSeats={selectedSeats}
+            creditCardData={creditCardData}
+            modalShow={modalShow}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            setDisplaySeats={setDisplaySeats}
+            setDisplayCheckout={setDisplayCheckout}
+            setModalShow={setModalShow}
+          />
+        )}
+      </div>
+    </div>
   );
 }
+
 export default ReserveTicket;

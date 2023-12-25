@@ -1,4 +1,4 @@
-.ViewMatches {
+.ManagerViewMatches {
   background-color: hsl(260, 47%, 96%);
 }
 
@@ -44,7 +44,8 @@ h2 {
   font-weight: bold;
   color: hsl(261, 80%, 33%);
   font-size: 400%;
-  margin: 5%;
+  margin-top: 5%;
+  margin-bottom: 1%;
 }
 
 .card:hover {
