@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Login from "./pages/Login";
 import ReserveTicket from "./pages/ReserveTicket";
-import Matches from "./pages/Matches";
+import Customer_ViewMatches from "./pages/Customer_ViewMatches";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SiteAdministrator from "./pages/SiteAdministrator";
 import EFAManager_ViewMatches from "./pages/EFAManager_ViewMatches";
@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Welcomepage />} />
-          <Route path="/Matches" element={<Matches />} />
+          <Route path="/Matches" element={<Customer_ViewMatches />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SignUp />} />
 
@@ -28,7 +28,10 @@ function App() {
           <Route path="/EFA/Edit" element={<EFAManager_EditMatch />} />
           <Route path="/EFA/Create" element={<EFAManager_CreateNewMatch />} />
 
-          <Route path="/Matches/ReserveTicket" element={<ReserveTicket />} />
+          <Route
+            path="/Matches/ReserveTicket/:id"
+            element={<ReserveTicket />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

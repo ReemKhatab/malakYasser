@@ -1,14 +1,14 @@
 import React from "react";
-import ViewMatches from "../componets/ViewMatches";
+import ManagerViewMatches from "../componets/ManagerViewMatches";
 import EFAManagerNavBar from "../componets/EFAManagerNavBar";
-import "../styles/ViewMatches.css";
+import "../styles/ManagerViewMatches.css";
 
 function EFAManager_ViewMatches() {
   return (
-    <div className="ViewMatches">
+    <div className="ManagerViewMatches">
       <EFAManagerNavBar />
       <h2>Current matches</h2>
-      <ViewMatches showButton={false} />
+      <ManagerViewMatches />
     </div>
   );
 }

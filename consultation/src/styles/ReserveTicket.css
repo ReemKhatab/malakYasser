@@ -1,3 +1,6 @@
+.ReserveTicket {
+  background-color: hsl(260, 47%, 96%);
+}
 .matchcont {
   display: flex;
   justify-content: center;
@@ -8,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -17,4 +21,63 @@
   align-items: center;
   flex-wrap: wrap;
   width: 70%;
+}
+.SeatButton {
+  background-color: transparent;
+  color: purple !important;
+  /* flex-basis: 10% !important; */
+}
+.SeatButton:hover {
+  background-color: rgb(255, 255, 255) !important;
+  /* flex-basis: 10% !important; */
+}
+.MatchDetails {
+  margin: 2%;
+}
+
+.ButtonCheckout {
+  font-size: x-large;
+  margin: 2%;
+  padding: 1% 5%;
+  background-color: hsl(261, 80%, 33%);
+  --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
+  --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
+  border: none;
+}
+.ButtonCheckout:disabled,
+.ButtonCheckout[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.ButtonCheckout:hover {
+  background-color: hsla(261, 80%, 48%, 0.748);
+  transform: translate3D(0, -1px, 0) scale(1.15);
+  transition: all 0.4s ease;
+}
+
+.CVC {
+  appearance: "textfield" !important;
+  /* font-size: 1000px !important; */
+}
+
+.ButtonChangeSeats {
+  font-size: large;
+  margin: 2%;
+  margin-left: 10%;
+  margin-right: 5%;
+  padding: 1% 5%;
+  background-color: hsl(261, 80%, 33%);
+  --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
+  --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
+  border: none;
+}
+.ButtonChangeSeats:hover {
+  background-color: hsla(261, 80%, 48%, 0.748);
+}
+.SectionButton {
+  display: flex;
+  justify-content: right;
+  
 }

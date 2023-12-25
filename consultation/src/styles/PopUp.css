@@ -1,0 +1,10 @@
+.ButtonClose {
+  background-color: hsl(261deg 80% 48%);
+  --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
+  --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
+  border: none;
+}
+
+.ButtonClose:hover {
+  background-color: hsla(261, 80%, 48%, 0.748);
+}
