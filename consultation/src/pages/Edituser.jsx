@@ -1,65 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/SignUp.css";
 import "../styles/Button.css";
 import { Form, FormGroup, FormControl, FormLabel, Button } from "react-bootstrap";
 import NavBar from "../componets/Navbar";
+import axios from "axios";
 function Edit() {
+  const [user , setUser] = useState({})
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+
+        // Using Axios to make an asynchronous request
+        axios
+          .get("http://localhost:8808/edit" , {
+            params : {username : localStorage.getItem("username")}})
+          .then(function (response) {
+            console.log(response.data);
+            setUser(response.data);
+            setLoading(false)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+    
+  },[]
+  )
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.currentTarget
-        const username = form[0].value
-        const password = form[1].value
-        const firstName = form[2].value
-        const lastName = form[3].value
-        const mobile = form[4].value
-        const birthDate = form[5].value
-        const ID = form[6].value
-        const address = form[7].value
-        const city = form[8].value
-        const job = form[9].value
+        const values = {
+          username: localStorage.getItem("username"),
+          password: form[0].value,
+          firstName :form[1].value,
+          lastName :form[2].value,
+          email : form[3].value,
+          birthDate :form[4].value,
+          address: form[5].value,
+          city:form[6].value,
+        }
+        
+        axios
+        .post("http://localhost:8808/edit", values)
+        .then((response) => {
+          console.log("testttt")
+          console.log(response.data)
+        })
+  
       }
-      const user = {
-        username : "mostafaandbadr",
-        password : "mostafaandbadr",
-        firstName : "mostafaandbadr",
-        lastName : "mostafaandbadr",
-        mobile : "01005865909",
-        ID : "30210282100532",
-        date: "3/1/2024",
-        address : "mostafaandbadr",
-        city : "mostafaandbadr",
-        job : "mohandes"
-    
-      };
+      
+      const handleChange = (e) => {
+        setUser({
+          ...user ,
+          [e.currentTarget.name] : e.currentTarget.value
+        })
+      }
+
+
       
 
   return (
-    <div className="all">
+    
+       <div className="all">
       <NavBar />
       <div className="signupcontainer">
-   
+        {!loading ?
         <div className="signup">
        
           <Form onSubmit={handleSubmit}>
           <h1 style={{color:"white", fontWeight: "1000" }}>Edit Info</h1>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left userpad" > Username </FormLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter username"
-                name="username"
-                value={user.username}
-                required
-              />
-            </FormGroup>
+     
             <FormGroup className="mb-3 Formclass input-login">
               <FormLabel className="text-left"> Password </FormLabel>
               <FormControl
                 type="password"
                 placeholder="Enter password"
-                name="pass"
+                name="password"
                 value={user.password}
                 required
+                onChange={handleChange}
               />
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login">
@@ -67,9 +85,10 @@ function Edit() {
               <FormControl
                 type="text"
                 placeholder="Enter FirstName"
-                name="firstName"
-                value={user.firstName}
+                name="firstname"
+                value={user.firstname}
                 required
+                onChange={handleChange}
               />
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login">
@@ -77,22 +96,23 @@ function Edit() {
               <FormControl
                 type="text"
                 placeholder="Last Name"
-                name="LastName"
-                value={user.lastName}
+                name="lastname"
+                value={user.lastname}
                 required
+                onChange={handleChange}
               />
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > Mobile number </FormLabel>
+              <FormLabel className="text-left" > Email </FormLabel>
               <FormControl
-                type='tel'
-                placeholder="Mobile"
-                name="mobile"
+                type="email"
+                placeholder="email"
+                name="email"
+                value={user.email}
                 required
-                pattern='[0-9]{11}'
-                value={user.mobile}
+                onChange={handleChange}
               />
-               </FormGroup>
+            </FormGroup>
 
 
             <FormGroup className="mb-3 Formclass input-login">
@@ -101,19 +121,9 @@ function Edit() {
                 type="date"
                 placeholder="Enter birthdate"
                 name="birthdate"
-                value={new Date(user.date).toISOString().split("T")[0]}
+                value={new Date(user.birthdate).toISOString().split("T")[0]}
                 required
-              />
-            </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > National ID </FormLabel>
-              <FormControl
-                type="tel"
-                placeholder="Enter ID"
-                name="ID"
-                required
-                value={user.ID}
-                pattern='[0-9]{14}'
+                onChange={handleChange}
               />
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login">
@@ -124,6 +134,7 @@ function Edit() {
                 name="address"
                 value={user.address}
                 required
+                onChange={handleChange}
               />
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login">
@@ -134,24 +145,15 @@ function Edit() {
                 name="city"
                 value={user.city}
                 required
-              />
-            </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > Job </FormLabel>
-              <FormControl
-                type="text"
-                placeholder="Job"
-                name="job"
-                value={user.job}
-                required
+                onChange={handleChange}
               />
             </FormGroup>
             <Button className="SubmitLogin" variant="primary" type="submit">
               Edit Info
             </Button>
           </Form>
-        </div>
-      </div>
+        </div> :  <h1>loading</h1>}
+      </div> 
     </div>
   );
 }

@@ -71,6 +71,7 @@ function Login() {
           if (role == 2) navigate("/EFA/View");
           if (role == 3) navigate("/Matches");
           localStorage.setItem("isLogged", true);
+          localStorage.setItem("username" , username.value)
         })
         .catch(function (error) {
           console.log(error);
