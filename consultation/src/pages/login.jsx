@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import "../styles/Button.css";
 import NavBar from "../componets/Navbar";
+import axios from "axios";
 
 import {
   Form,
@@ -11,7 +12,6 @@ import {
   FormLabel,
   Button,
 } from "react-bootstrap";
-import axios from "axios";
 let LoggedIn = false;
 
 function Login() {

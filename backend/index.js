@@ -69,6 +69,52 @@ app.get("/users", (request, response) => {
     }
   });
 });
+
+app.get("/siteadministrator/managers", (request, response) => {
+  const q = "SELECT username,activated FROM USERS WHERE ROLE=1 OR ROLE=2";
+  // console.log("VALUESSS", request.query.username, request.query.password);
+  console.log("received a request: " + request.url);
+  db.query(q, (error, result) => {
+    if (error) return response.json(error);
+    return response.json(result);
+  });
+});
+app.get("/siteadministrator/customers", (request, response) => {
+  const q = "SELECT username,activated FROM USERS WHERE ROLE=3";
+  // console.log("VALUESSS", request.query.username, request.query.password);
+  console.log("received a request: " + request.url);
+  db.query(q, (error, result) => {
+    if (error) return response.json(error);
+    return response.json(result);
+  });
+});
+
+app.delete("/siteadministrator/deleteuser", (request, response) => {
+  const q = "DELETE FROM USERS WHERE username = ?";
+  const username = request.body.selecteduser;
+  console.log("user to deleteeeeee: ", username);
+  console.log("received a delete request: " + request.url);
+  db.query(q, [username], (error, result) => {
+    if (error) return response.json(error);
+    else {
+      return response.json(result);
+    }
+  });
+});
+
+app.put("/siteadministrator/updateActivateUser", (request, response) => {
+  const q = "UPDATE USERS SET activated=? WHERE username = ?";
+  const username = request.body[0];
+  const activated = request.body[1];
+  console.log("user to update: ", activated, username);
+  console.log("received an update request: " + request.url);
+  db.query(q, [activated, username], (error, result) => {
+    if (error) return response.json(error);
+    else {
+      return response.json(result);
+    }
+  });
+});
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");
 });

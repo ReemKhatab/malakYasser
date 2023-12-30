@@ -1,14 +1,16 @@
-export const Managers = [
-    {
-      id: 1,
-      name: "malak",
-      activated: false,
-    },
-    
-    {
-      id: 4,
-      name: "fouda",
-      activated: false,
-    },
-  ];
-  
+import axios from "axios";
+
+let Managers = [];
+
+const fetchManagers = () => {
+  return axios
+    .get("http://localhost:8808/siteadministrator/managers")
+    .then(function (response) {
+      Managers = response.data;
+      console.log(Managers);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+export { Managers, fetchManagers };
