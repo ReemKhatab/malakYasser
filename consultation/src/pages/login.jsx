@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import "../styles/Button.css";
 import NavBar from "../componets/Navbar";
+
 import {
   Form,
   FormControl,
@@ -14,6 +15,12 @@ import axios from "axios";
 let LoggedIn = false;
 
 function Login() {
+  const [errorUsernameMessage, setErrorUsernameMessage] = useState(
+    "Username must be 5 - 20 characters"
+  );
+  const [errorPasswordMessage, setErrorPasswordMessage] = useState(
+    "Password must be 5 - 20 characters"
+  );
   const [validated, setValidated] = useState(false);
   const [values, setValues] = useState({
     username: "",
@@ -37,11 +44,13 @@ function Login() {
 
     if (username.value.length < 5 || username.value.length > 20) {
       username.setCustomValidity("U");
+      setErrorUsernameMessage("Username must be 5 - 20 characters");
     } else {
       username.setCustomValidity("");
     }
-    if (password.value.length < 8) {
+    if (password.value.length < 8 || password.value.length > 20) {
       password.setCustomValidity("P");
+      setErrorPasswordMessage("Password must be 5 - 20 characters");
     } else {
       password.setCustomValidity("");
     }
@@ -67,6 +76,8 @@ function Login() {
           console.log(error);
           username.setCustomValidity("dc");
           password.setCustomValidity("cdc");
+          setErrorUsernameMessage("Invalid username or password");
+          setErrorPasswordMessage("");
         });
     }
     setValidated(true);
@@ -92,7 +103,7 @@ function Login() {
                 // isInvalid=
               />
               <Form.Control.Feedback type="invalid">
-                Username must be 5 - 20 characters.
+                {errorUsernameMessage}
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup
@@ -108,7 +119,7 @@ function Login() {
                 required
               />
               <Form.Control.Feedback type="invalid">
-                Password must be at least 8 characters.
+                {errorPasswordMessage}
               </Form.Control.Feedback>
             </FormGroup>
 
