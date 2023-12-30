@@ -23,16 +23,17 @@ const UserList = ({
         </Button>
       </div>
       {users.map((user, index) => (
-        <div className="row" key={user.id}>
-          <div className="col-sm-10">
+        <div className="row" key={user.username}>
+          <div className="col-sm-10" key={user.username}>
             <Form>
               <Form.Check // prettier-ignore
                 className="Checkboxes"
                 type={"checkbox"}
-                id={user.id}
-                label={user.name}
-                checked={selectedUsers.includes(user.id)}
-                onChange={() => handleCheckboxChange(user.id)}
+                id={user.username}
+                label={user.username}
+                key={user.username}
+                checked={selectedUsers.includes(user.username)}
+                onChange={() => handleCheckboxChange(user.username)}
               />
             </Form>
           </div>
@@ -41,7 +42,7 @@ const UserList = ({
             <Button
               className="ButtonisActivated"
               variant="primary"
-              onClick={() => toggleActivated(user.id)}
+              onClick={() => toggleActivated(user.username)}
               style={{ background: user.activated ? "red" : "green" }}
             >
               {user.activated ? "Deactivate" : "Activate"}

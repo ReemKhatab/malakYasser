@@ -1,22 +1,17 @@
-export const Users = [
-  {
-    id: 1,
-    name: "malak",
-    activated: false,
-  },
-  {
-    id: 2,
-    name: "reem",
-    activated: false,
-  },
-  {
-    id: 3,
-    name: "mohamed",
-    activated: true,
-  },
-  {
-    id: 4,
-    name: "fouda",
-    activated: false,
-  },
-];
+import axios from "axios";
+
+let Users = [];
+
+const fetchUsers = () => {
+  return axios
+    .get("http://localhost:8808/siteadministrator/customers")
+    .then(function (response) {
+      Users = response.data;
+      console.log(Users);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+export { Users, fetchUsers };
