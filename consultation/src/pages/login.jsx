@@ -21,7 +21,6 @@ function Login() {
   });
   const navigate = useNavigate();
   LoggedIn = localStorage.getItem("isLogged");
-  // const [loggedIn, setLoggedIn] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +29,7 @@ function Login() {
       [name]: value,
     });
   };
-  const getData = () => {
-    
-  };
+
   const handleSubmit = (e) => {
     const form = e.currentTarget;
     const username = form.querySelector("#Username");
@@ -51,9 +48,9 @@ function Login() {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
-      console.log("IN TANYY IF");
     } else {
-      // console.log("VALUES BGD AWY",values.username,values.password)
+      e.preventDefault();
+      e.stopPropagation();
       axios
         .get("http://localhost:8808/users", {
           params: values,
@@ -61,19 +58,16 @@ function Login() {
         .then(function (response) {
           console.log(response.data["ROLE"]);
           const role = response.data["ROLE"];
-          if (role == 3) {
-            // setLoggedIn(true);
-            // localStorage.setItem("isLogged",true);
-            navigate("/EFA/View");
-          }
-          // if (role == 2) navigate("/SiteAdministrator");
-          // if (role == 1) navigate("/Matches");
+          if (role == 1) navigate("/SiteAdministrator");
+          if (role == 2) navigate("/EFA/View");
+          if (role == 3) navigate("/Matches");
+          localStorage.setItem("isLogged", true);
         })
         .catch(function (error) {
           console.log(error);
+          username.setCustomValidity("dc");
+          password.setCustomValidity("cdc");
         });
-      localStorage.setItem("isLogged", true);
-      // navigate("/SiteAdministrator");
     }
     setValidated(true);
   };
