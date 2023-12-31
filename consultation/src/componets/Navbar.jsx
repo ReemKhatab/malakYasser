@@ -11,6 +11,7 @@ function NavBar() {
   const log = localStorage.getItem("isLogged")
   const toggle = () => {
     localStorage.setItem("isLogged" , false)
+    localStorage.setItem("username" , "")
   }
 
   return (
@@ -23,6 +24,7 @@ function NavBar() {
             <Nav.Link href="/">Home</Nav.Link>
             {(log === "true") ? <Nav.Link href="/Edituser">Edit Info</Nav.Link> : <Nav.Link href="Login">Log in</Nav.Link>}
             {(log === "true") ? <Nav.Link href="/" onClick={toggle}>Logout</Nav.Link> : <Nav.Link href="Signup">Sign Up</Nav.Link>}
+            {(log === "true") && <Nav.Link href="/Cart">View Tickets</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

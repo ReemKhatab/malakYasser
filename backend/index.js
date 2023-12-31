@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysqlpassword8",
+  password: "Bizo7245",
   database: "projconsultation",
 });
  db.connect((err)=>
@@ -387,13 +387,57 @@ app.get("/view_matches", (request, response) => {
     return response.json(result);
   });
 });
-app.listen(8808, () => {
-  console.log("connectedd bnjjnjnjbbb");
-});
+/////////////////////////////////checkouttt///////////////////////
 
-//commands
-
-//npm init -y
+app.post("/checkout", (request, response) => {
+  const q = "update seats set reserved=? , username=? where matchid=? && seatid=?"
+  
+  
+  const reserved = request.body.reserved;
+  const matchid = request.body.matchid;
+  const seatid = request.body.seatid;
+  const username = request.body.username
+  console.log("checkkout", request.body);
+  db.query(
+    q,
+    [
+      reserved,
+      username,
+      matchid,
+      seatid,
+      
+    ],
+    (error, result) => {
+      if (error)
+      {
+        return response
+        .status(401)
+        .json({ error: "duplicate" });
+      }
+      console.log(result)
+      
+      
+    }
+    );
+  });
+  app.get("/tickets", (request, response) => {
+    const q = "SELECT matches.id, matches.hometeam, matches.awayteam, seats.seatid , matches.matchdate, matches.matchtime ,seats.ticketid " 
+            + "FROM matches INNER JOIN seats ON matches.id = seats.matchid where seats.username = ?"
+    const username = request.query.username
+    console.log("received a tickettttttttt: " + request.url);
+    db.query(q,[username] ,  (error, result) => {
+      if (error) return response.json(error);
+      console.log(result)
+      return response.json(result);
+    });
+  });
+  
+  app.listen(8808, () => {
+    console.log("connectedd bnjjnjnjbbb");
+  });
+  //commands
+  
+  //npm init -y
 //npm i express mysql nodemon
 //npm i axios f el client side: da ashan react y2dar yt3amel m3a el requests w db
 

@@ -1,9 +1,12 @@
 // Checkout.jsx
-import React from "react";
+import {React,useLocation} from "react";
 import { Button, Form } from "react-bootstrap";
 import PopUp from "../componets/PopUp.jsx";
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 const Checkout = ({
+  matchid,
   selectedSeats,
   creditCardData,
   handleChange,
@@ -13,6 +16,16 @@ const Checkout = ({
   modalShow,
   setModalShow,
 }) => {
+
+  const handleCheckout = (e) => {
+    setModalShow(true)
+    const username = localStorage.getItem("username")
+    selectedSeats.map((seat) => {
+      axios
+      .post("http://localhost:8808/checkout", {matchid: parseInt(matchid, 10),seatid:seat,reserved:1 , username:username})
+      
+    })
+  }
   return (
     <div>
       <h2>Checkout</h2>
@@ -74,7 +87,7 @@ const Checkout = ({
             className="ButtonSubmit"
             variant="primary"
             type="submit"
-            onClick={() => setModalShow(true)}
+            onClick={handleCheckout}
           >
             Checkout
           </Button>

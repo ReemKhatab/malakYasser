@@ -117,6 +117,7 @@ function ReserveTicket() {
       {!loading ? <div className="Checkout">
         {displayCheckout && (
           <Checkout
+            matchid={matchId}
             selectedSeats={selectedSeats}
             creditCardData={creditCardData}
             modalShow={modalShow}

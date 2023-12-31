@@ -12,6 +12,7 @@ import EFAManager_AddStadium from "./pages/EFAManager_AddStadium";
 import SignUp from "./pages/SignUp";
 import Welcomepage from "./pages/Welcomepage";
 import Edit from "./pages/Edituser";
+import Cart from "./pages/Cart";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SignUp />} />
           <Route path="/Edituser" element={<Edit />} />
+          <Route path="/Cart" element={<Cart />} />
 
           <Route path="/SiteAdministrator" element={<SiteAdministrator />} />
 
