@@ -10,7 +10,7 @@ import EFAManager_EditMatch from "./pages/EFAManager_EditMatch";
 import EFAManager_CreateNewMatch from "./pages/EFAManager_CreateNewMatch";
 import EFAManager_AddStadium from "./pages/EFAManager_AddStadium";
 import SignUp from "./pages/SignUp";
-import Welcomepage from "./pages/welcomepage";
+import Welcomepage from "./pages/Welcomepage";
 import Edit from "./pages/Edituser";
 
 

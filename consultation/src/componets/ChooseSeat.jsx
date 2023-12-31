@@ -3,34 +3,35 @@ import "../styles/ReserveTicket.css";
 import SeatsButton from "../componets/seatsButton.jsx";
 import NavBar from "../componets/Navbar.jsx";
 import { useLocation } from "react-router-dom";
-import { Matches } from "../helpers/Matches.jsx";
 import Button from "react-bootstrap/Button";
-import { StadiumSeats } from "../helpers/stadiumSeats.jsx";
 
 function ChooseTicket({
   coloumns,
-  matchId,
+  Seats,
+  match,
   onSelectSeats,
   hideSeatsShowCheckout,
 }) {
-  const [seats, setSeats] = useState(StadiumSeats);
+  const [seats, setSeats] = useState(Seats);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [isselected , setisselected] = useState({});
+  
 
-  const handleClick = (name) => {
-    setSeats((prevSeats) => {
-      const newSeats = prevSeats.map((seat) =>
-        seat.seatName === name ? { ...seat, booked: !seat.booked } : seat
-      );
-      return newSeats;
-    });
+  const handleClick = (id) => {
+    // setSeats((prevSeats) => {
+    //   const newSeats = prevSeats.map((seat) =>
+    //     seat.seatid === id ? { ...seat, reserved: seat.reserved } : seat
+    //   );
+    //   return newSeats;
+    // });
 
     setSelectedSeats((prevSelectedSeats) => {
-      if (prevSelectedSeats.includes(name)) {
+      if (prevSelectedSeats.includes(id)) {
         // If the seat is already reserved, remove it from the list
-        return prevSelectedSeats.filter((seat) => seat !== name);
+        return prevSelectedSeats.filter((seat) => seat !== id);
       } else {
         // If the seat is not reserved, add it to the list
-        return [...prevSelectedSeats, name];
+        return [...prevSelectedSeats, id];
       }
     });
   };
@@ -38,31 +39,33 @@ function ChooseTicket({
     onSelectSeats(selectedSeats);
     hideSeatsShowCheckout(true);
   };
-  const selectedMatch = Matches.find(
-    (match) => match.id === parseInt(matchId, 10)
-  );
+  // const selectedMatch = Matches.find(
+  //   (match) => match.id === parseInt(matchId, 10)
+  // );
   return (
     <>
       <h2>
-        {selectedMatch.homeTeam} vs {selectedMatch.awayTeam}
+        {match.hometeam} vs {match.awayteam}
       </h2>
       <div className="matches">
         <div className="MatchDetails">
-          <h4>Date: {selectedMatch.date}</h4>
-          <h4>Time: {selectedMatch.time}</h4>
-          <h4>Lineman 1: {selectedMatch.lineman1}</h4>
-          <h4>Lineman 2: {selectedMatch.lineman2}</h4>
+          <h4>Date: {match.matchdate.split("T")[0]}</h4>
+          <h4>Time: {match.matchtime}</h4>
+          <h4>Lineman 1: {match.lineman1}</h4>
+          <h4>Lineman 2: {match.lineman2}</h4>
         </div>
         <div className="seats-grid">
           {seats.map((item, index) => (
             <SeatsButton
               key={index}
               coloums={coloumns}
-              id={index}
-              booked={item.booked}
-              text={item.seatName}
+              id={item.seatid}
+              booked={item.reserved}
+              text={item.seatid}
+              selected = {selectedSeats}
+
               onClick={() => {
-                handleClick(item.seatName);
+                handleClick(item.seatid);
               }}
             />
           ))}

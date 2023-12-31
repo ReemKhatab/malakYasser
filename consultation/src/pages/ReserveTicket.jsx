@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/ReserveTicket.css";
 import { StadiumSeats } from "../helpers/stadiumSeats.jsx";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SeatsButton from "../componets/seatsButton.jsx";
 import NavBar from "../componets/Navbar.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ import { Matches } from "../helpers/Matches.jsx";
 import { Form, Button, Modal } from "react-bootstrap";
 import ChooseTicket from "../componets/ChooseSeat.jsx";
 import Checkout from "../componets/Checkout.jsx";
+import axios from "axios";
+
 
 const initialCreditCardData = {
   cardHolderName: "",
@@ -27,9 +29,50 @@ function ReserveTicket() {
 
   const location = useLocation();
   const matchId = location.pathname.split("/")[3];
-  const selectedMatch = Matches.find(
-    (match) => match.id === parseInt(matchId, 10)
-  );
+  // const selectedMatch = Matches.find(
+  //   (match) => match.id === parseInt(matchId, 10)
+    
+  // );
+
+  const [matctdetails,setmatchdetails]=useState();
+  const [stadiumdetails,setstadiumdetails]=useState();
+  const [seatsdetails,setseatsdetails]=useState();
+  const [loading,setloadng]=useState(true);
+
+
+  useEffect(() => {
+
+    // Using Axios to make an asynchronous request
+    axios
+    .get("http://localhost:8808/seats" , {
+      params : {matchid : parseInt(matchId, 10)}})
+    .then(function (response) {
+      setseatsdetails(response.data);
+      
+    })
+
+    axios
+      .get("http://localhost:8808/match" , {
+        params : {matchid : parseInt(matchId, 10)}})
+      .then(function (response) {      
+        setmatchdetails(response.data);
+        axios
+        .get("http://localhost:8808/stadium" , {
+          params : {stadiumname : response.data.stadiumname}})
+          .then(function (response) {
+            setstadiumdetails(response.data);
+            setloadng(false);
+          })
+ 
+      })
+     
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+},[]
+)
   //Seats
   const handleSelectSeats = (seats) => {
     console.log("Selected Seats:", seats);
@@ -58,17 +101,20 @@ function ReserveTicket() {
   return (
     <div className="ReserveTicket">
       <NavBar />
+
+      {!loading && 
       <div className="Seats">
         {displaySeats && (
           <ChooseTicket
-            coloumns={5} // or the appropriate value
-            matchId={matchId}
+            coloumns={stadiumdetails.columns} // or the appropriate value
+            Seats={seatsdetails}
+            match={matctdetails}
             onSelectSeats={handleSelectSeats}
             hideSeatsShowCheckout={handleCheckout}
           />
         )}
-      </div>
-      <div className="Checkout">
+      </div> }
+      {!loading ? <div className="Checkout">
         {displayCheckout && (
           <Checkout
             selectedSeats={selectedSeats}
@@ -81,7 +127,8 @@ function ReserveTicket() {
             setModalShow={setModalShow}
           />
         )}
-      </div>
+        
+      </div> : <h1>asda</h1> }
     </div>
   );
 }

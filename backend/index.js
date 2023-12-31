@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import mysql from "mysql";
+import mysql from "mysql2"
 import cors from "cors";
 
 const app = express();
@@ -9,9 +9,17 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Reem@2002=01",
+  password: "Bizo7245",
   database: "projconsultation",
 });
+ db.connect((err)=>
+ {
+  if(err)
+  {
+    console.log(err)
+  }
+ })
+
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_current_password';
 //used this line with db
 app.get("/", (request, response) => {
@@ -118,7 +126,7 @@ app.put("/siteadministrator/updateActivateUser", (request, response) => {
 app.post("/users", (request, response) => {
   const q =
     "INSERT INTO projconsultation.users " +
-    "VALUES (? , ? , ? , ? , ? , ? , ? , ? , ? , ?)";
+    "VALUES (? , ? , ? , ? , ? , ? , ? , ? , ? , ?,?)";
   const username = request.body.username;
   const password = request.body.password;
   const firstName = request.body.firstName;
@@ -144,6 +152,7 @@ app.post("/users", (request, response) => {
       city,
       address,
       3,
+      0,
     ],
     (error, result) => {
       if (error) console.log(error);
@@ -227,6 +236,48 @@ app.post("/EFA_manager/add_stadium", (request, response) => {
     }
   );
 });
+
+/////////////////////////////////////////////////seatsssssssssssssssssssssss
+app.get("/match", (request, response) => {
+  const q = "SELECT * FROM matches where id=?;";
+  const matchid = request.query.matchid;
+  // console.log("VALUESSS", request.query.username, request.query.password);
+  console.log("received a request: " + request.url);
+  db.query(q, [matchid], (error, result) => {
+    if (error) return response.json(error);
+    if (result.length > 0) {
+      return response.json(result[0]); // Assuming you only want to send the first result
+    } 
+  });
+});
+////////////////////////////////////////get stadium rows and coloumns///////////
+app.get("/stadium", (request, response) => {
+  const q = "SELECT * FROM stadiums where stadiumname=?";
+  const stadiumname = request.query.stadiumname;
+  // console.log("VALUESSS", request.query.username, request.query.password);
+  console.log("received a request: " + request.url);
+  db.query(q, [stadiumname], (error, result) => {
+    if (error) return response.json(error);
+    if (result.length > 0) {
+      return response.json(result[0]); // Assuming you only want to send the first result
+    } 
+  });
+});
+////////////////////////////////////////get seatssssssssssssssssss///////////
+app.get("/seats", (request, response) => {
+  const q = "SELECT * FROM seats where matchid=?";
+  const matchid = request.query.matchid;
+  // console.log("VALUESSS", request.query.username, request.query.password);
+  console.log("received a request: " + request.url);
+  db.query(q, [matchid], (error, result) => {
+    if (error) return response.json(error);
+    if (result.length > 0) {
+      return response.json(result); // Assuming you only want to send the first result
+    } 
+  });
+});
+
+
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");
 });
