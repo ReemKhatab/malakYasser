@@ -4,6 +4,7 @@ import "../styles/SignUp.css";
 import "../styles/Button.css";
 import { Form, FormGroup, FormControl, FormLabel, Button } from "react-bootstrap";
 import NavBar from "../componets/Navbar";
+import axios from "axios";
 
 function SignUp() {
   const Navigate = useNavigate()
@@ -13,26 +14,46 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget
-    const username = form[0].value
-    const password = form[1].value
-    const firstName = form[2].value
-    const lastName = form[3].value
-    const Mobile = form[4].value
-    const birthDate = form[5].value
-    const ID = form[6].value
-    const address = form[7].value
-    const city = form[8].value
-    const job = form[9].value
+   
     let gender;
-    if (form[10].checked == true) {
-      gender = 'male'
-
+    if (form[8].checked == true) {
+      gender = "0"
+      
     }
-    else if (form[11].checked) {
-      gender = 'female'
-
+    else if (form[9].checked) {
+      gender = "1"
+      
     }
-    Navigate("/")
+    const values = { 
+     username: form.querySelector("#Username").value,
+     password: form.querySelector("#Password").value,
+     firstName: form.querySelector("#FirstName").value,
+     lastName: form.querySelector("#LastName").value,
+     email : form.querySelector("#email").value,
+     birthDate: form.querySelector("#Birthdate").value,
+     address :form.querySelector("#Address").value,
+     city: form.querySelector("#City").value,
+     gender : gender
+
+   }
+
+    axios
+        .post("http://localhost:8808/users", { 
+          username: form.querySelector("#Username").value,
+          password: form.querySelector("#Password").value,
+          firstName: form.querySelector("#FirstName").value,
+          lastName: form.querySelector("#LastName").value,
+          email : form.querySelector("#email").value,
+          birthDate: form.querySelector("#Birthdate").value,
+          address :form.querySelector("#Address").value,
+          city: form.querySelector("#City").value,
+          gender : gender
+     
+        })
+        .then((response) => {
+          console.log("testttt")
+          console.log(response.data)
+        })
   }
 
   return (
@@ -42,7 +63,7 @@ function SignUp() {
         <div className="signup">
           <Form onSubmit={handleSubmit}>
           <h1 style={{color:"white", fontWeight: "1000" }}>Sign Up</h1>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="Username">
               <FormLabel className="text-left userpad" > Username </FormLabel>
               <FormControl
                 type="text"
@@ -51,7 +72,7 @@ function SignUp() {
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="Password">
               <FormLabel className="text-left"> Password </FormLabel>
               <FormControl
                 type="password"
@@ -60,7 +81,7 @@ function SignUp() {
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="FirstName">
               <FormLabel className="text-left" > FirstName </FormLabel>
               <FormControl
                 type="text"
@@ -69,7 +90,7 @@ function SignUp() {
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="LastName">
               <FormLabel className="text-left" > Last Name </FormLabel>
               <FormControl
                 type="text"
@@ -78,17 +99,16 @@ function SignUp() {
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > Mobile number </FormLabel>
+            <FormGroup className="mb-3 Formclass input-login" controlId="email">
+              <FormLabel className="text-left" > Email </FormLabel>
               <FormControl
-                type='tel'
-                placeholder="Mobile"
-                name="mobile"
+                type = "email"
+                placeholder="Enter email"
+                name="email"
                 required
-                pattern='[0-9]{11}'
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="Birthdate">
               <FormLabel className="text-left" > Birthdate </FormLabel>
               <FormControl
                 type="date"
@@ -97,17 +117,7 @@ function SignUp() {
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > National ID </FormLabel>
-              <FormControl
-                type="tel"
-                placeholder="Enter ID"
-                name="ID"
-                required
-                pattern='[0-9]{14}'
-              />
-            </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="Address">
               <FormLabel className="text-left" > Address </FormLabel>
               <FormControl
                 type="text"
@@ -116,21 +126,12 @@ function SignUp() {
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
+            <FormGroup className="mb-3 Formclass input-login" controlId="City">
               <FormLabel className="text-left" > City </FormLabel>
               <FormControl
                 type="text"
                 placeholder="City"
                 name="city"
-                required
-              />
-            </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > Job </FormLabel>
-              <FormControl
-                type="text"
-                placeholder="Job"
-                name="job"
                 required
               />
             </FormGroup>
