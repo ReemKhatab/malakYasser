@@ -3,12 +3,13 @@ import "../styles/CustomerMatchItem.css";
 import { Teams } from "../helpers/Teams";
 function CustomerMatchItem({ match }) {
   const selectedHomeTeam = Teams.find(
-    (team) => team.teamname === match.homeTeam
+    (team) => team.teamname === match.hometeam
   );
   const selectedAwayTeam = Teams.find(
-    (team) => team.teamname === match.awayTeam
+    (team) => team.teamname === match.awayteam
   );
-
+  const matchDate = match.matchdate ? match.matchdate.substring(0, 10) : "";
+  const matchTime = match.matchtime ? match.matchtime.substring(0, 5) : "";
   console.log("MLAAAKAKK:");
   console.log("selectedHomeTeam:", selectedHomeTeam);
   console.log("selectedAwayTeam:", selectedAwayTeam);
@@ -23,19 +24,19 @@ function CustomerMatchItem({ match }) {
             src={window.location.origin + selectedHomeTeam.logo}
             alt={`${selectedHomeTeam.name} Logo`}
           />
-          {match.homeTeam} vs {match.awayTeam}
+          {match.hometeam} vs {match.awayteam}
           <img
             className="DisplayLogo"
             src={window.location.origin + selectedAwayTeam.logo}
             alt={`${selectedAwayTeam.name} Logo`}
           />
         </Card.Title>
-        <Card.Text className="Venue">{match.matchVenue}</Card.Text>
+        <Card.Text className="Venue">{match.stadiumname}</Card.Text>
         <div className="Details">
           <Card.Text>
-            {match.date}
+            {matchDate}
             <span style={{ marginRight: "50px" }}></span>
-            {match.time}
+            {matchTime}
           </Card.Text>
         </div>
       </Card.Body>
