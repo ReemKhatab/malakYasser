@@ -1,5 +1,7 @@
 .ManagerViewMatches {
   background-color: hsl(260, 47%, 96%);
+  width: 100%;
+ 
 }
 
 .card-group {
