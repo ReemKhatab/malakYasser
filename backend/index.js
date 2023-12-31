@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import mysql from "mysql2"
+import mysql from "mysql2";
 import cors from "cors";
 
 const app = express();
@@ -12,13 +12,11 @@ const db = mysql.createConnection({
   password: "mysqlpassword8",
   database: "projconsultation",
 });
- db.connect((err)=>
- {
-  if(err)
-  {
-    console.log(err)
+db.connect((err) => {
+  if (err) {
+    console.log(err);
   }
- })
+});
 
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_current_password';
 //used this line with db
@@ -292,9 +290,72 @@ app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
     (error, result) => {
       if (error) {
         console.log(error);
-        return response
-            .status(401)
-            .json({ error: "Invalid inputttttttttt" });
+        return response.status(401).json({ error: "Invalid inputttttttttt" });
+      }
+      // if (result.length > 0) {
+      console.log("LENGTH", result.length);
+      return response.json(result);
+      // } else {
+      //   return response
+      //     .status(401)
+      //     .json({ error: "Invalid inputttttttttt" });
+      // }
+    }
+  );
+});
+
+// app.put("/siteadministrator/updateActivateUser", (request, response) => {
+//   const q = "UPDATE USERS SET activated=? WHERE username = ?";
+//   const username = request.body[0];
+//   const activated = request.body[1];
+//   console.log("user to update: ", activated, username);
+//   console.log("received an update request: " + request.url);
+//   db.query(q, [activated, username], (error, result) => {
+//     if (error) return response.json(error);
+//     else {
+//       return response.json(result);
+//     }
+//   });
+// });
+
+app.put("/EFA_manager/create_new_match/edit_match", (request, response) => {
+  const q =
+    "UPDATE `projconsultation`.`matches` SET `hometeam`=?, `awayteam`=?, `matchdate`=?, `matchtime`=?,stadiumname=?, `refree`=?, `lineman1`=?, `lineman2`=?, `totalcapacity`=? ,`vacantseats`=? ,`reservedseats`=? WHERE id=?";
+  const id = request.body.id;
+  const hometeam = request.body.hometeam;
+  const awayteam = request.body.awayteam;
+  const matchdate = request.body.matchdate;
+  const matchtime = request.body.matchtime;
+  const stadiumname = request.body.stadiumname;
+  const refree = request.body.refree;
+  const lineman1 = request.body.lineman1;
+  const lineman2 = request.body.lineman2;
+  const totalcapacity = request.body.totalcapacity;
+  const vacantseats = request.body.vacantseats;
+  const reservedseats = request.body.reservedseats;
+
+  console.log("VALUESSS iDDDDD", request.body.id);
+
+  db.query(
+    q,
+    [
+      hometeam,
+      awayteam,
+      matchdate,
+      matchtime,
+      stadiumname,
+      refree,
+      lineman1,
+      lineman2,
+      totalcapacity,
+      vacantseats,
+      reservedseats,
+      id,
+    ],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        return response.status(401).json({ error: "Invalid inputttttttttt" });
       }
       // if (result.length > 0) {
       console.log("LENGTH", result.length);
@@ -310,32 +371,17 @@ app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
 
 app.post("/EFA_manager/add_stadium", (request, response) => {
   const q =
-    "INSERT INTO projconsultation.stadiums " +
-    "VALUES (? , ? , ? , ? )";
+    "INSERT INTO projconsultation.stadiums " + "VALUES (? , ? , ? , ? )";
   const stadiumname = request.body.stadiumname;
   const numberofseats = request.body.numberofseats;
   const rows = request.body.rows;
   const columns = request.body.columns;
   console.log("VALUESSS", request.body, request.query.password);
-  db.query(
-    q,
-    [
-      stadiumname,
-      numberofseats,
-      rows,
-      columns,
-    ],
-    (error, result) => {
-      if (error)
-      {
-        return response
-        .status(401)
-        .json({ error: "duplicate" });
-      }
-      
-
+  db.query(q, [stadiumname, numberofseats, rows, columns], (error, result) => {
+    if (error) {
+      return response.status(401).json({ error: "duplicate" });
     }
-  );
+  });
 });
 
 /////////////////////////////////////////////////seatsssssssssssssssssssssss
@@ -348,7 +394,7 @@ app.get("/match", (request, response) => {
     if (error) return response.json(error);
     if (result.length > 0) {
       return response.json(result[0]); // Assuming you only want to send the first result
-    } 
+    }
   });
 });
 ////////////////////////////////////////get stadium rows and coloumns///////////
@@ -361,7 +407,7 @@ app.get("/stadium", (request, response) => {
     if (error) return response.json(error);
     if (result.length > 0) {
       return response.json(result[0]); // Assuming you only want to send the first result
-    } 
+    }
   });
 });
 ////////////////////////////////////////get seatssssssssssssssssss///////////
@@ -374,13 +420,13 @@ app.get("/seats", (request, response) => {
     if (error) return response.json(error);
     if (result.length > 0) {
       return response.json(result); // Assuming you only want to send the first result
-    } 
+    }
   });
 });
 
-
 app.get("/view_matches", (request, response) => {
-  const q = "SELECT * FROM projconsultation.matches";
+  const q =
+    "SELECT * FROM projconsultation.matches WHERE DATE(matchdate) >= CURDATE()";
   console.log("received a request: " + request.url);
   db.query(q, (error, result) => {
     if (error) return response.json(error);
