@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Reem@2002=01",
+  password: "mysqlpassword8",
   database: "projconsultation",
 });
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_current_password';
@@ -53,7 +53,7 @@ app.get("/", (request, response) => {
 //   });
 // });
 app.get("/users", (request, response) => {
-  const q = "SELECT ROLE FROM USERS WHERE USERNAME=? AND PASSWORD=?";
+  const q = "SELECT ROLE FROM USERS WHERE USERNAME=? AND PASSWORD=? AND ACTIVATED=1";
   const username = request.query.username;
   const password = request.query.password;
   // console.log("VALUESSS", request.query.username, request.query.password);
@@ -129,19 +129,33 @@ app.post("/users", (request, response) => {
   const email = request.body.email;
   const gender = request.body.gender;
 
-
   console.log("VALUESSS", request.body, request.query.password);
 
-  db.query(q, [username, password , email , firstName , lastName  , birthDate , gender , city , address , 3 ], (error, result) => {
-    if (error) console.log(error);
-    // if (result.length > 0) {
-    //   return response.json(result[0]); // Assuming you only want to send the first result
-    // } else {
-    //   return response
-    //     .status(401)
-    //     .json({ error: "Invalid username or password" });
-    // }
-  });
+  db.query(
+    q,
+    [
+      username,
+      password,
+      email,
+      firstName,
+      lastName,
+      birthDate,
+      gender,
+      city,
+      address,
+      3,
+    ],
+    (error, result) => {
+      if (error) console.log(error);
+      // if (result.length > 0) {
+      //   return response.json(result[0]); // Assuming you only want to send the first result
+      // } else {
+      //   return response
+      //     .status(401)
+      //     .json({ error: "Invalid username or password" });
+      // }
+    }
+  );
 });
 app.get("/edit", (request, response) => {
   const q = "SELECT * FROM USERS WHERE USERNAME=?";
@@ -161,7 +175,7 @@ app.get("/edit", (request, response) => {
 });
 app.post("/edit", (request, response) => {
   const q =
-  "UPDATE projconsultation.users SET password=?, email=?,firstname=?,lastname=?,birthdate=?,city=?,address=? where username=?"
+    "UPDATE projconsultation.users SET password=?, email=?,firstname=?,lastname=?,birthdate=?,city=?,address=? where username=?";
   const username = request.body.username;
   const password = request.body.password;
   const firstName = request.body.firstName;
@@ -172,20 +186,23 @@ app.post("/edit", (request, response) => {
   const email = request.body.email;
   const gender = request.body.gender;
 
-
   console.log("VALUESSS", request.body, request.query.password);
 
-  db.query(q, [ password , email , firstName , lastName  , birthDate , city , address , username ], (error, result) => {
-    if (error) console.log(error);
-    console.log(result)
-    // if (result.length > 0) {
-    //   return response.json(result[0]); // Assuming you only want to send the first result
-    // } else {
-    //   return response
-    //     .status(401)
-    //     .json({ error: "Invalid username or password" });
-    // }
-  });
+  db.query(
+    q,
+    [password, email, firstName, lastName, birthDate, city, address, username],
+    (error, result) => {
+      if (error) console.log(error);
+      console.log(result);
+      // if (result.length > 0) {
+      //   return response.json(result[0]); // Assuming you only want to send the first result
+      // } else {
+      //   return response
+      //     .status(401)
+      //     .json({ error: "Invalid username or password" });
+      // }
+    }
+  );
 });
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");

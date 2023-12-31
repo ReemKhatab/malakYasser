@@ -77,7 +77,7 @@ function Login() {
           console.log(error);
           username.setCustomValidity("dc");
           password.setCustomValidity("cdc");
-          setErrorUsernameMessage("Invalid username or password");
+          setErrorUsernameMessage("Invalid username or password or account isn't activated yet");
           setErrorPasswordMessage("");
         });
     }
