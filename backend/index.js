@@ -222,7 +222,13 @@ app.post("/EFA_manager/add_stadium", (request, response) => {
       columns,
     ],
     (error, result) => {
-      if (error) console.log(error);
+      if (error)
+      {
+        return response
+        .status(401)
+        .json({ error: "duplicate" });
+      }
+      
 
     }
   );

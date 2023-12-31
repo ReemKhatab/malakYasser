@@ -12,7 +12,7 @@ function PopUpTwo(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          You just added a new stadium with {props.value} seats 
+          {props.message} 
         </Modal.Title>
       </Modal.Header>
       <Modal.Footer>

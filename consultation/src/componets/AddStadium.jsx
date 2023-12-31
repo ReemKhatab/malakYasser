@@ -14,6 +14,7 @@ function AddStadium() {
   const [stadiumData, setStadiumData] = useState(initialStadiumData);
   const [modalShow, setModalShow] = React.useState(false);
   const [validated, setValidated] = useState(false);
+  const [error, setError] = useState(null);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setStadiumData({
@@ -43,6 +44,12 @@ function AddStadium() {
         .then((response) => {
           console.log("testttt");
           console.log(response.data);
+          setModalShow(true);
+        })
+        .catch(function (error) {
+          console.error("Error adding stadium:", error);
+          setError(error);
+          setModalShow(true);
         });
     }
     setValidated(true);
@@ -62,41 +69,35 @@ function AddStadium() {
             onChange={handleChange}
             required
           />
-          <Form.Control.Feedback type="invalid" >
-            required
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">required</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3 Formclass" controlId="formRows">
           <Form.Label className="Titles">Number of Rows</Form.Label>
           <Form.Control
             type="number"
-            min='1'
+            min="1"
             placeholder="Enter number of rows"
             name="rows"
             value={stadiumData.rows}
             onChange={handleChange}
             required
           />
-          <Form.Control.Feedback type="invalid" >
-            required
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">required</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3 Formclass" controlId="formColumns">
           <Form.Label className="Titles">Number of Columns</Form.Label>
           <Form.Control
             type="number"
-            min='1'
+            min="1"
             placeholder="Enter number of columns"
             name="columns"
             value={stadiumData.columns}
             onChange={handleChange}
             required
           />
-          <Form.Control.Feedback type="invalid">
-            required
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">required</Form.Control.Feedback>
         </Form.Group>
 
         <Button className="ButtonSubmit" variant="primary" type="submit">
@@ -106,7 +107,12 @@ function AddStadium() {
           <PopUpTwo
             show={modalShow}
             onHide={() => setModalShow(false)}
-            value={stadiumData.rows * stadiumData.columns}
+            message={
+              error
+                ? "Error adding stadium. change stadium data and try again."
+                : `You just added a new stadium with ${
+                    stadiumData.columns * stadiumData.rows
+                  } seats.`}
           />
         </div>
       </Form>
