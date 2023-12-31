@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysqlpassword8",
+  password: "Reem@2002=01",
   database: "projconsultation",
 });
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_current_password';
@@ -201,6 +201,29 @@ app.post("/edit", (request, response) => {
       //     .status(401)
       //     .json({ error: "Invalid username or password" });
       // }
+    }
+  );
+});
+app.post("/EFA_manager/add_stadium", (request, response) => {
+  const q =
+    "INSERT INTO projconsultation.stadiums " +
+    "VALUES (? , ? , ? , ? )";
+  const stadiumname = request.body.stadiumname;
+  const numberofseats = request.body.numberofseats;
+  const rows = request.body.rows;
+  const columns = request.body.columns;
+  console.log("VALUESSS", request.body, request.query.password);
+  db.query(
+    q,
+    [
+      stadiumname,
+      numberofseats,
+      rows,
+      columns,
+    ],
+    (error, result) => {
+      if (error) console.log(error);
+
     }
   );
 });
