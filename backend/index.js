@@ -227,6 +227,14 @@ app.post("/EFA_manager/add_stadium", (request, response) => {
     }
   );
 });
+app.get("/view_matches", (request, response) => {
+  const q = "SELECT * FROM projconsultation.matches";
+  console.log("received a request: " + request.url);
+  db.query(q, (error, result) => {
+    if (error) return response.json(error);
+    return response.json(result);
+  });
+});
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");
 });
