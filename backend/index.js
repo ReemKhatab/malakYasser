@@ -61,7 +61,8 @@ app.get("/", (request, response) => {
 //   });
 // });
 app.get("/users", (request, response) => {
-  const q = "SELECT ROLE FROM USERS WHERE USERNAME=? AND PASSWORD=? AND ACTIVATED=1";
+  const q =
+    "SELECT ROLE FROM USERS WHERE USERNAME=? AND PASSWORD=? AND ACTIVATED=1";
   const username = request.query.username;
   const password = request.query.password;
   // console.log("VALUESSS", request.query.username, request.query.password);
@@ -213,6 +214,100 @@ app.post("/edit", (request, response) => {
     }
   );
 });
+
+app.get("/EFA_manager/create_new_match/get_all_teams", (request, response) => {
+  const q = "SELECT * FROM TEAMS";
+  // console.log("VALUESSS", request.query.username, request.query.password);
+  console.log("received a request: " + request.url);
+  db.query(q, (error, result) => {
+    if (error) return response.json(error);
+    return response.json(result);
+  });
+});
+
+app.get(
+  "/EFA_manager/create_new_match/get_all_stadiums",
+  (request, response) => {
+    const q = "SELECT * FROM STADIUMS";
+    // console.log("VALUESSS", request.query.username, request.query.password);
+    console.log("received a request: " + request.url);
+    db.query(q, (error, result) => {
+      if (error) return response.json(error);
+      return response.json(result);
+    });
+  }
+);
+
+app.get(
+  "/EFA_manager/create_new_match/get_stadiums_capacity",
+  (request, response) => {
+    const q = "SELECT numberofseats FROM STADIUMS WHERE STADIUMNAME=?";
+    const stadiumname = request.query.stadiumname;
+    console.log("VALUESSS", request.query.stadiumname);
+    console.log("received a request: " + request.url);
+    db.query(q, [stadiumname], (error, result) => {
+      if (error) return response.json(error);
+      // if (result.length > 0) {
+      console.log("VALUESSS", result[0]);
+      return response.json(result[0]);
+      // } else {
+      //   return response.status(401).json({ error: "Number of seats is null" });
+      // }
+    });
+  }
+);
+
+app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
+  const q =
+    "INSERT INTO `projconsultation`.`matches` (`hometeam`, `awayteam`, `matchdate`, `matchtime`, `stadiumname`, `refree`, `lineman1`, `lineman2`, `totalcapacity`, `vacantseats`, `reservedseats`) VALUES (?, ?,?,?, ?,?, ?, ?,?,?,?)";
+  const hometeam = request.body.hometeam;
+  const awayteam = request.body.awayteam;
+  const matchdate = request.body.matchdate;
+  const matchtime = request.body.matchtime;
+  const stadiumname = request.body.stadiumname;
+  const refree = request.body.refree;
+  const lineman1 = request.body.lineman1;
+  const lineman2 = request.body.lineman2;
+  const totalcapacity = request.body.totalcapacity;
+  const vacantseats = request.body.vacantseats;
+  const reservedseats = request.body.reservedseats;
+
+  // console.log("VALUESSS", request.body, request.query.password);
+
+  db.query(
+    q,
+    [
+      hometeam,
+      awayteam,
+      matchdate,
+      matchtime,
+      stadiumname,
+      refree,
+      lineman1,
+      lineman2,
+      totalcapacity,
+      vacantseats,
+      reservedseats,
+    ],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        return response
+            .status(401)
+            .json({ error: "Invalid inputttttttttt" });
+      }
+      // if (result.length > 0) {
+      console.log("LENGTH", result.length);
+      return response.json(result);
+      // } else {
+      //   return response
+      //     .status(401)
+      //     .json({ error: "Invalid inputttttttttt" });
+      // }
+    }
+  );
+});
+
 app.post("/EFA_manager/add_stadium", (request, response) => {
   const q =
     "INSERT INTO projconsultation.stadiums " +
@@ -231,7 +326,13 @@ app.post("/EFA_manager/add_stadium", (request, response) => {
       columns,
     ],
     (error, result) => {
-      if (error) console.log(error);
+      if (error)
+      {
+        return response
+        .status(401)
+        .json({ error: "duplicate" });
+      }
+      
 
     }
   );
@@ -278,6 +379,14 @@ app.get("/seats", (request, response) => {
 });
 
 
+app.get("/view_matches", (request, response) => {
+  const q = "SELECT * FROM projconsultation.matches";
+  console.log("received a request: " + request.url);
+  db.query(q, (error, result) => {
+    if (error) return response.json(error);
+    return response.json(result);
+  });
+});
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");
 });

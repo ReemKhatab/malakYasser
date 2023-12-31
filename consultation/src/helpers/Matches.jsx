@@ -1,74 +1,17 @@
-export const Matches = [
-  {
-    id: 1,
-    homeTeam: "Ahly",
-    awayTeam: "Zamalek",
-    matchVenue: "Cairo Stadium",
-    date: "3/1/2024",
-    time: "13:00",
-    lineman1: "ahmad",
-    lineman2: "ali",
-    vacantSeats: 5,
-    reservedSeats: 10,
-  },
-  {
-    id: 2,
-    homeTeam: "Ahly",
-    awayTeam: "Elgouna",
-    matchVenue: "Alex Stadium",
-    date: "4/4/2024",
-    time: "17:00",
-    lineman1: "fouda",
-    lineman2: "badr",
-    vacantSeats: 8,
-    reservedSeats: 1,
-  },
-  {
-    id: 3,
-    homeTeam: "Ahly",
-    awayTeam: "Elgouna",
-    matchVenue: "Suez Stadium",
-    date: "4/3/2024",
-    time: "09:00",
-    lineman1: "malak",
-    lineman2: "reem",
-    vacantSeats: 8,
-    reservedSeats: 23,
-  },
-  {
-    id: 4,
-    homeTeam: "Zamalek",
-    awayTeam: "Elgouna",
-    matchVenue: "Suez Stadium",
-    date: "4/3/2024",
-    time: "09:00",
-    lineman1: "malak",
-    lineman2: "reem",
-    vacantSeats: 8,
-    reservedSeats: 23,
-  },
-  {
-    id: 5,
-    homeTeam: "Etihad",
-    awayTeam: "Zamalek",
-    matchVenue: "Suez Stadium",
-    date: "4/3/2024",
-    time: "09:00",
-    lineman1: "malak",
-    lineman2: "reem",
-    vacantSeats: 8,
-    reservedSeats: 23,
-  },
-  {
-    id: 6,
-    homeTeam: "Ahly",
-    awayTeam: "Etihad",
-    matchVenue: "Suez Stadium",
-    date: "4/3/2024",
-    time: "09:00",
-    lineman1: "malak",
-    lineman2: "reem",
-    vacantSeats: 8,
-    reservedSeats: 23,
-  },
-];
+import axios from "axios";
+
+let Matches = [];
+
+const fetchMatches = () => {
+  return axios
+    .get("http://localhost:8808/view_matches")
+    .then(function (response) {
+      console.log("ana weslt",Matches);
+      Matches = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+export { Matches, fetchMatches };
