@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 import ReserveTicket from "./pages/ReserveTicket";
 import Customer_ViewMatches from "./pages/Customer_ViewMatches";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -10,7 +10,7 @@ import EFAManager_EditMatch from "./pages/EFAManager_EditMatch";
 import EFAManager_CreateNewMatch from "./pages/EFAManager_CreateNewMatch";
 import EFAManager_AddStadium from "./pages/EFAManager_AddStadium";
 import SignUp from "./pages/SignUp";
-import Welcomepage from "./pages/Welcomepage";
+import Welcomepage from "./pages/welcomepage";
 import Edit from "./pages/Edituser";
 import Cart from "./pages/Cart";
 

@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysqlpassword8",
+  password: "Reem@2002=01",
   database: "projconsultation",
 });
 db.connect((err) => {
@@ -78,7 +78,7 @@ app.get("/users", (request, response) => {
 });
 
 app.get("/siteadministrator/managers", (request, response) => {
-  const q = "SELECT username,activated FROM USERS ROLE=2";
+  const q = "SELECT username,activated FROM USERS WHERE ROLE=2";
   // console.log("VALUESSS", request.query.username, request.query.password);
   console.log("received a request: " + request.url);
   db.query(q, (error, result) => {
