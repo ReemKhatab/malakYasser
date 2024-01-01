@@ -135,6 +135,7 @@ app.post("/users", (request, response) => {
   const city = request.body.city;
   const email = request.body.email;
   const gender = request.body.gender;
+  const role=request.body.role;
 
   console.log("VALUESSS", request.body, request.query.password);
 
@@ -150,7 +151,7 @@ app.post("/users", (request, response) => {
       gender,
       city,
       address,
-      3,
+      role,
       0,
     ],
     (error, result) => {
@@ -423,7 +424,7 @@ app.get("/stadium", (request, response) => {
 });
 ////////////////////////////////////////get seatssssssssssssssssss///////////
 app.get("/seats", (request, response) => {
-  const q = "SELECT * FROM seats where matchid=?";
+  const q = "SELECT * FROM seats where matchid=? ORDER BY seatid";
   const matchid = request.query.matchid;
   // console.log("VALUESSS", request.query.username, request.query.password);
   console.log("received a request: " + request.url);
@@ -465,7 +466,7 @@ app.post("/checkout", (request, response) => {
 app.get("/tickets", (request, response) => {
   const q =
     "SELECT matches.id, matches.hometeam, matches.awayteam, seats.seatid , matches.matchdate, matches.matchtime ,seats.ticketid " +
-    "FROM matches INNER JOIN seats ON matches.id = seats.matchid where seats.username = ?";
+    "FROM matches INNER JOIN seats ON matches.id = seats.matchid where seats.username = ? && DATE(matches.matchdate) >= CURDATE()";
   const username = request.query.username;
   console.log("received a tickettttttttt: " + request.url);
   db.query(q, [username], (error, result) => {
@@ -474,6 +475,23 @@ app.get("/tickets", (request, response) => {
     return response.json(result);
   });
 });
+//////////////////////////////////cancel ticket////////////////////////////////
+app.post("/cancelticket", (request, response) => {
+  const q =
+    "update seats set reserved=0 , username=NULL where ticketid=?";
+  
+  const ticketid = request.body.ticketid;
+  console.log("ticketttttttt", request.body);
+  db.query(q, [ticketid], (error, result) => {
+    if (error) {
+      console.log(error)
+      return response.status(401).json({ error: "duplicate" });
+    }
+    console.log("resultttt",result);
+  });
+});
+
+
 
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");
