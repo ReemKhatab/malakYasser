@@ -68,6 +68,50 @@ function CreateNewMatch() {
     }
   };
 
+  const addSeatsToDB = (matchid,totalcapacity) => {
+    for (let i = 1; i <= totalcapacity; i++) {
+      axios
+        .post("http://localhost:8808/EFA_manager/create_new_match/add_seat", {
+          matchid: matchid,
+          seatid: i,
+        })
+        .then((response) => {
+          console.log("sahhhh");
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log("ghalaaat");
+          console.log(error);
+        });
+    }
+  };
+
+  const addMatchToDB = () => {
+    //insert match in db
+    axios
+      .post(
+        "http://localhost:8808/EFA_manager/create_new_match/submit_match",
+        matchData
+      )
+      .then((response) => {
+        console.log("sahhhh");
+        console.log(response);
+        setValidated(true);
+        seterrorMsg("");
+        const insertedId = response.data.insertedId;
+        console.log("Inserted ID in React.js:", insertedId);
+
+        //add to seats table
+        addSeatsToDB(insertedId,matchData.totalcapacity);
+      })
+      .catch(function (error) {
+        setValidated(false);
+        seterrorMsg("Error Duplicated Match");
+        console.log("ghalaaat");
+        setModalShow(true);
+        console.log(error);
+      });
+  };
   const handleSubmit = (e) => {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -93,28 +137,9 @@ function CreateNewMatch() {
           matchData.vacantseats = response.data["numberofseats"];
           matchData.reservedseats = 0;
           console.log("Capacityy", matchData.totalcapacity);
+          addMatchToDB();
         })
         .catch(function (error) {
-          console.log(error);
-        });
-
-      //insert match in db
-      axios
-        .post(
-          "http://localhost:8808/EFA_manager/create_new_match/submit_match",
-          matchData
-        )
-        .then((response) => {
-          console.log("sahhhh");
-          console.log(response);
-          setValidated(true);
-        })
-        .catch(function (error) {
-          setValidated(false);
-          seterrorMsg("Error Duplicated Match");
-          console.log("ghalaaat");
-          setModalShow(true);
-
           console.log(error);
         });
     }
