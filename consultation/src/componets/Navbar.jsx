@@ -21,10 +21,10 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            {(log === "true") ? <Nav.Link href="/Edituser">Edit Info</Nav.Link> : <Nav.Link href="Login">Log in</Nav.Link>}
+            <Nav.Link href="/Matches">Home</Nav.Link>
             {(log === "true") ? <Nav.Link href="/" onClick={toggle}>Logout</Nav.Link> : <Nav.Link href="Signup">Sign Up</Nav.Link>}
             {(log === "true") && <Nav.Link href="/Cart">View Tickets</Nav.Link>}
+            {(log=="true")&&<Nav.Link href="/Edituser">{localStorage.getItem("username")}</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

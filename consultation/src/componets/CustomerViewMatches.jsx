@@ -1,12 +1,14 @@
-import { React, useState ,useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import CustomerMatchItem from "./CustomerMatchItem";
-import { Matches ,fetchMatches} from "../helpers/Matches";
+import { Matches, fetchMatches } from "../helpers/Matches";
 import { Col, Row, CardGroup } from "react-bootstrap";
 import "../styles/ManagerViewMatches.css";
 import { Link } from "react-router-dom";
 
 function CustomerViewMatches() {
   const [matches, setMatches] = useState([]);
+  // const [link, setLink] = useState("/Login");
+  const log = localStorage.getItem("isLogged");
 
   useEffect(() => {
     // Fetch matches when the component mounts
@@ -18,18 +20,20 @@ function CustomerViewMatches() {
       .catch((error) => {
         console.error("Error fetching matches:", error);
       });
-  }, []); 
+  }, []);
 
+  const CheckUser = (matchid) => {
+    var link = "/Login";
+    if (log == "true") link = `/Matches/ReserveTicket/${matchid}`;
+    return link;
+  };
   return (
     <div>
       <CardGroup>
         <Row>
           {matches.map((match, index) => (
             <Col>
-              <Link
-                to={`/Matches/ReserveTicket/${match.id}`}
-                style={{ textDecoration: "none" }}
-              >
+              <Link to={CheckUser(match.id)} style={{ textDecoration: "none" }}>
                 <CustomerMatchItem match={match} />
               </Link>
             </Col>

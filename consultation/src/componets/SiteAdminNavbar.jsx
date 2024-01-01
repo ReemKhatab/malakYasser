@@ -4,15 +4,25 @@ import Navbar from "react-bootstrap/Navbar";
 import "../styles/Navbar.css";
 
 function NavBar() {
+  const username=localStorage.getItem("username")
+  const toggle = () => {
+    localStorage.setItem("isLogged", false);
+    localStorage.setItem("username", "");
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary NavBarStyles">
       <Container>
-        <Navbar.Brand  href="/">Tazkartak </Navbar.Brand>
+        <Navbar.Brand href="/SiteAdministrator">Tazkartak </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/">Sign Out</Nav.Link>
+            <Nav.Link href="/" onClick={toggle}>
+              Log Out
+            </Nav.Link>
+            <Nav.Link href="/Editadmin">
+              {username}
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -21,4 +31,3 @@ function NavBar() {
 }
 
 export default NavBar;
-

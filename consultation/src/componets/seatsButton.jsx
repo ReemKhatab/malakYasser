@@ -11,7 +11,7 @@ function SeatsButton(props) {
     {
       setStyles({...styles , color : "red"})
     }
-  }, [])
+  }, [props.booked])
 
   const handleClick = () => {
     props.onClick()

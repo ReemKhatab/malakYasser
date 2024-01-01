@@ -36,20 +36,20 @@ function ReserveTicket() {
 
   const [matctdetails,setmatchdetails]=useState();
   const [stadiumdetails,setstadiumdetails]=useState();
-  const [seatsdetails,setseatsdetails]=useState();
   const [loading,setloadng]=useState(true);
 
+  // const fetchdata = () => {
+  //   // Using Axios to make an asynchronous request
+  //   axios
+  //   .get("http://localhost:8808/seats" , {
+  //     params : {matchid : parseInt(matchId, 10)}})
+  //   .then(function (response) {
+  //     setseatsdetails(response.data);
+      
+  //   })
+  // }
 
   useEffect(() => {
-
-    // Using Axios to make an asynchronous request
-    axios
-    .get("http://localhost:8808/seats" , {
-      params : {matchid : parseInt(matchId, 10)}})
-    .then(function (response) {
-      setseatsdetails(response.data);
-      
-    })
 
     axios
       .get("http://localhost:8808/match" , {
@@ -69,7 +69,6 @@ function ReserveTicket() {
       .catch(function (error) {
         console.log(error);
       });
-
 
 },[]
 )
@@ -107,10 +106,11 @@ function ReserveTicket() {
         {displaySeats && (
           <ChooseTicket
             coloumns={stadiumdetails.columns} // or the appropriate value
-            Seats={seatsdetails}
             match={matctdetails}
             onSelectSeats={handleSelectSeats}
             hideSeatsShowCheckout={handleCheckout}
+            matchId = {matchId}
+
           />
         )}
       </div> }

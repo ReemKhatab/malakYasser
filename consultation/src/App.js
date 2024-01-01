@@ -13,6 +13,8 @@ import SignUp from "./pages/SignUp";
 import Welcomepage from "./pages/welcomepage";
 import Edit from "./pages/Edituser";
 import Cart from "./pages/Cart";
+import Editmanager from "./pages/Editmanager";
+import Editadmin from "./componets/Editadmin";
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SignUp />} />
           <Route path="/Edituser" element={<Edit />} />
+          <Route path="/Editmanager" element={<Editmanager />} />
+          <Route path="/Editadmin" element={<Editadmin />} />
           <Route path="/Cart" element={<Cart />} />
 
           <Route path="/SiteAdministrator" element={<SiteAdministrator />} />

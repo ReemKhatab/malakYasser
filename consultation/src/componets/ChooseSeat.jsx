@@ -1,21 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ReserveTicket.css";
 import SeatsButton from "../componets/seatsButton.jsx";
 import NavBar from "../componets/Navbar.jsx";
 import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 function ChooseTicket({
   coloumns,
-  Seats,
   match,
   onSelectSeats,
   hideSeatsShowCheckout,
+  matchId
 }) {
-  const [seats, setSeats] = useState(Seats);
+  const [seats, setseats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [isselected , setisselected] = useState({});
-  
+
+  const setDate = (date) => {
+    const newdate = new Date(date);
+    newdate.setDate(newdate.getDate() + 1);
+    const newdateFormatted = newdate.toISOString().split("T")[0];
+    return newdateFormatted;
+  };
+  const fetchdata = () => {
+    // Using Axios to make an asynchronous request
+    axios
+    .get("http://localhost:8808/seats" , {
+      params : {matchid : parseInt(matchId, 10)}})
+    .then(function (response) {
+      console.log("changess" , response.data)
+      if(!seats.length == 0)
+      {
+        setseats((prevseats) =>
+        prevseats.map((item , index) =>
+        item.reserved !== response.data[index].reserved ? { ...item, reserved: response.data[index].reserved } : item
+        ));
+      }
+      else{
+        setseats(response.data)
+      }
+      
+    })
+  }
+
+  useEffect(() => {
+
+    fetchdata();
+    const interval = setInterval(() => {
+      fetchdata();
+    },10000)
+
+    return () => clearInterval(interval);
+  }
+  ,[])
 
   const handleClick = (id) => {
     // setSeats((prevSeats) => {
@@ -49,7 +87,7 @@ function ChooseTicket({
       </h2>
       <div className="matches">
         <div className="MatchDetails">
-          <h4>Date: {match.matchdate.split("T")[0]}</h4>
+          <h4>Date: {setDate(match.matchdate)}</h4>
           <h4>Time: {match.matchtime}</h4>
           <h4>Lineman 1: {match.lineman1}</h4>
           <h4>Lineman 2: {match.lineman2}</h4>
