@@ -1,9 +1,9 @@
 // Checkout.jsx
-import {React,useLocation} from "react";
+import { React, useLocation } from "react";
 import { Button, Form } from "react-bootstrap";
 import PopUp from "../componets/PopUp.jsx";
 import axios from "axios";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const Checkout = ({
   matchid,
@@ -16,16 +16,32 @@ const Checkout = ({
   modalShow,
   setModalShow,
 }) => {
-
   const handleCheckout = (e) => {
-    setModalShow(true)
-    const username = localStorage.getItem("username")
+    setModalShow(true);
+    const username = localStorage.getItem("username");
     selectedSeats.map((seat) => {
-      axios
-      .post("http://localhost:8808/checkout", {matchid: parseInt(matchid, 10),seatid:seat,reserved:1 , username:username})
-      
-    })
-  }
+      axios.post("http://localhost:8808/checkout", {
+        matchid: parseInt(matchid, 10),
+        seatid: seat,
+        reserved: 1,
+        username: username,
+      });
+    });
+  };
+  const isCreditCardValid = () => {
+    const creditCardRegex = /^[0-9]{16}$/;
+    return creditCardRegex.test(creditCardData.creditcardNumber);
+  };
+  const isCVCValid = () => {
+    // Regular expression for a 3-digit CVC number
+    const cvcRegex = /^[0-9]{3}$/;
+    return cvcRegex.test(creditCardData.CVC);
+  };
+  const isCardHolderNameValid = () => {
+    // Check if the card holder name is not empty
+    return creditCardData.cardHolderName.trim() !== "";
+  };
+
   return (
     <div>
       <h2>Checkout</h2>
@@ -58,7 +74,12 @@ const Checkout = ({
               name="cardHolderName"
               value={creditCardData.cardHolderName}
               onChange={handleChange}
+              isInvalid={!isCardHolderNameValid()}
+              required
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter the card holder's name.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3 Formclass" controlId="creditcardNumber">
@@ -69,7 +90,11 @@ const Checkout = ({
               name="creditcardNumber"
               value={creditCardData.creditcardNumber}
               onChange={handleChange}
+              isInvalid={!isCreditCardValid()}
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid credit card number.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3 Formclass" controlId="CVC">
@@ -81,7 +106,11 @@ const Checkout = ({
               name="CVC"
               value={creditCardData.CVC}
               onChange={handleChange}
+              isInvalid={!isCVCValid()}
             />
+            <Form.Control.Feedback type="invalid">
+              Please enter a valid 3-digit CVC number.
+            </Form.Control.Feedback>
           </Form.Group>
           <Button
             className="ButtonSubmit"

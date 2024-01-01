@@ -135,7 +135,7 @@ app.post("/users", (request, response) => {
   const city = request.body.city;
   const email = request.body.email;
   const gender = request.body.gender;
-  const role=request.body.role;
+  const role = request.body.role;
 
   console.log("VALUESSS", request.body, request.query.password);
 
@@ -155,9 +155,12 @@ app.post("/users", (request, response) => {
       0,
     ],
     (error, result) => {
-      if (error) console.log(error);
+      if (error) {
+        console.log(error);
+        return response.status(401).json({ error: "Can't signup " });
+      }
       // if (result.length > 0) {
-      //   return response.json(result[0]); // Assuming you only want to send the first result
+      return response.json(result); // Assuming you only want to send the first result
       // } else {
       //   return response
       //     .status(401)
@@ -542,21 +545,18 @@ app.get("/tickets", (request, response) => {
 });
 //////////////////////////////////cancel ticket////////////////////////////////
 app.post("/cancelticket", (request, response) => {
-  const q =
-    "update seats set reserved=0 , username=NULL where ticketid=?";
-  
+  const q = "update seats set reserved=0 , username=NULL where ticketid=?";
+
   const ticketid = request.body.ticketid;
   console.log("ticketttttttt", request.body);
   db.query(q, [ticketid], (error, result) => {
     if (error) {
-      console.log(error)
+      console.log(error);
       return response.status(401).json({ error: "duplicate" });
     }
-    console.log("resultttt",result);
+    console.log("resultttt", result);
   });
 });
-
-
 
 app.listen(8808, () => {
   console.log("connectedd bnjjnjnjbbb");

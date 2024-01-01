@@ -71,7 +71,7 @@ function EditMatch() {
         setValidated(true);
         seterrorMsg("");
         deletOldSeatsFromDB();
-        addSeatsToDB(matchData.id,matchData.totalcapacity);
+        addSeatsToDB(matchData.id, matchData.totalcapacity);
       })
       .catch(function (error) {
         setValidated(false);
@@ -353,7 +353,7 @@ function EditMatch() {
                 value={matchData.refree}
                 onChange={handleChange}
                 required
-                minLength={5}
+                minLength={3}
                 maxLength={20}
               />
               <Form.Control.Feedback type="invalid">
@@ -370,7 +370,7 @@ function EditMatch() {
                 value={matchData.lineman1}
                 onChange={handleChange}
                 required
-                minLength={5}
+                minLength={3}
                 maxLength={20}
               />
               <Form.Control.Feedback type="invalid">
@@ -386,7 +386,7 @@ function EditMatch() {
                 name="lineman2"
                 value={matchData.lineman2}
                 onChange={handleChange}
-                minLength={5}
+                minLength={3}
                 maxLength={20}
                 required
               />
