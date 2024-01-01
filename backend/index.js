@@ -330,7 +330,7 @@ app.post("/EFA_manager/create_new_match/add_seat", (request, response) => {
   });
 });
 
-app.put("/EFA_manager/create_new_match/edit_match", (request, response) => {
+app.put("/EFA_manager/edit_match", (request, response) => {
   const q =
     "UPDATE `projconsultation`.`matches` SET `hometeam`=?, `awayteam`=?, `matchdate`=?, `matchtime`=?,stadiumname=?, `refree`=?, `lineman1`=?, `lineman2`=?, `totalcapacity`=? ,`vacantseats`=? ,`reservedseats`=? WHERE id=?";
   const id = request.body.id;
@@ -379,6 +379,71 @@ app.put("/EFA_manager/create_new_match/edit_match", (request, response) => {
       // }
     }
   );
+});
+
+app.put("/EFA_manager/edit_match_without_stadium", (request, response) => {
+  const q =
+    "UPDATE `projconsultation`.`matches` SET `hometeam`=?, `awayteam`=?, `matchdate`=?, `matchtime`=?, `refree`=?, `lineman1`=?, `lineman2`=?  WHERE id=?";
+  const id = request.body.id;
+  const hometeam = request.body.hometeam;
+  const awayteam = request.body.awayteam;
+  const matchdate = request.body.matchdate;
+  const matchtime = request.body.matchtime;
+  // const stadiumname = request.body.stadiumname;
+  const refree = request.body.refree;
+  const lineman1 = request.body.lineman1;
+  const lineman2 = request.body.lineman2;
+  // const totalcapacity = request.body.totalcapacity;
+  // const vacantseats = request.body.vacantseats;
+  // const reservedseats = request.body.reservedseats;
+
+  console.log("VALUESSS iDDDDD", request.body.id);
+
+  db.query(
+    q,
+    [
+      hometeam,
+      awayteam,
+      matchdate,
+      matchtime,
+      // stadiumname,
+      refree,
+      lineman1,
+      lineman2,
+      // totalcapacity,
+      // vacantseats,
+      // reservedseats,
+      id,
+    ],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        return response.status(401).json({ error: "Invalid inputttttttttt" });
+      }
+      // if (result.length > 0) {
+      console.log("LENGTH", result.length);
+      return response.json(result);
+      // } else {
+      //   return response
+      //     .status(401)
+      //     .json({ error: "Invalid inputttttttttt" });
+      // }
+    }
+  );
+});
+
+app.delete("/EFA_manager/edit_match_delete_seats", (request, response) => {
+  const q = "DELETE FROM SEATS WHERE matchid = ?";
+  const matchid = request.body.matchid;
+  console.log("seat to deleteeeeee: ", matchid);
+  console.log("received a delete request: " + request.url);
+  db.query(q, [matchid], (error, result) => {
+    if (error) {
+      console.log(error);
+      return response.status(401).json({ error: "Can't delete seats" });
+    }
+    return response.json(result);
+  });
 });
 
 app.post("/EFA_manager/add_stadium", (request, response) => {

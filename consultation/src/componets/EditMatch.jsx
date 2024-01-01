@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Matches, fetchMatches } from "../helpers/Matches";
 import { Stadiums, fetchStadiums } from "../helpers/Stadiums";
 import { Teams, fetchTeams } from "../helpers/Teams";
@@ -23,8 +23,9 @@ const initialMatchData = {
 };
 
 function EditMatch() {
+  const ref = useRef(null);
   const [matchData, setMatchData] = useState(initialMatchData);
-  const [selectedStadium, setSelectedStadium] = useState("");
+  const [oldStadium, setOldStadium] = useState("");
 
   const [displayEditForm, setDisplayEditForm] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState(0);
@@ -43,21 +44,119 @@ function EditMatch() {
     return tomorrowFormatted;
   };
 
-  // const handleStadiumChange = (e) => {
-  //   setSelectedStadium(e.target.value);
-  //   const { name, value } = e.target;
-  //   setMatchData({
-  //     ...matchData,
-  //     [name]: value,
-  //   });
-  // };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMatchData({
       ...matchData,
       [name]: value,
     });
+
+    if (
+      (name === "awayteam" && value === matchData.hometeam) ||
+      (name === "hometeam" && value === matchData.awayteam)
+    ) {
+      seterrorMsg("Cannot choose the same team for home and away");
+    } else {
+      seterrorMsg("");
+    }
+  };
+
+  const updateMatchInDb = () => {
+    const matchd = new Date(matchData.matchdate);
+    matchData.matchdate = matchd.toISOString().split("T")[0];
+    axios
+      .put("http://localhost:8808/EFA_manager/edit_match", matchData)
+      .then(function (response) {
+        console.log("RESPONSE UPDATE", response);
+        setValidated(true);
+        seterrorMsg("");
+        addSeatsToDB();
+      })
+      .catch(function (error) {
+        setValidated(false);
+        seterrorMsg("Error Duplicated Match");
+        console.log("ghalaaat");
+        setModalShow(true);
+        console.log(error);
+      });
+  };
+
+  const updateMatchInDbWithoutStadium = () => {
+    const matchd = new Date(matchData.matchdate);
+    matchData.matchdate = matchd.toISOString().split("T")[0];
+    axios
+      .put(
+        "http://localhost:8808/EFA_manager/edit_match_without_stadium",
+        matchData
+      )
+      .then(function (response) {
+        console.log("RESPONSE UPDATE WITHOUT STAD", response);
+        setValidated(true);
+        seterrorMsg("");
+      })
+      .catch(function (error) {
+        setValidated(false);
+        seterrorMsg("Error Duplicated Match");
+        console.log("ghalaaat");
+        setModalShow(true);
+        console.log(error);
+      });
+  };
+
+  const getCapacityFromDb = () => {
+    axios
+      .get(
+        "http://localhost:8808/EFA_manager/create_new_match/get_stadiums_capacity",
+        {
+          params: {
+            stadiumname: matchData.stadiumname,
+          },
+        }
+      )
+      .then(function (response) {
+        matchData.totalcapacity = response.data["numberofseats"];
+        matchData.vacantseats = response.data["numberofseats"];
+        matchData.reservedseats = 0;
+        console.log("Capacityy", matchData.totalcapacity);
+        //add match to db
+        updateMatchInDb();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  //function calllllllllllll  addSeatsToDB(insertedId,matchData.totalcapacity);
+  const addSeatsToDB = (matchid, totalcapacity) => {
+    for (let i = 1; i <= totalcapacity; i++) {
+      axios
+        .post("http://localhost:8808/EFA_manager/create_new_match/add_seat", {
+          matchid: matchid,
+          seatid: i,
+        })
+        .then((response) => {
+          console.log("sahhhh");
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log("ghalaaat");
+          console.log(error);
+        });
+    }
+  };
+
+  const deletOldSeatsFromDB = () => {
+    axios
+      .delete("http://localhost:8808/EFA_manager/edit_match_delete_seats", {
+        data: { matchid: matchData.id },
+      })
+      .then((response) => {
+        console.log("sahhhh");
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log("ghalaaat");
+        console.log(error);
+      });
   };
 
   const handleSubmit = (e) => {
@@ -69,59 +168,24 @@ function EditMatch() {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      console.log(matchData);
-      //get capacity
-      axios
-        .get(
-          "http://localhost:8808/EFA_manager/create_new_match/get_stadiums_capacity",
-          {
-            params: {
-              stadiumname: matchData.stadiumname,
-            },
-          }
-        )
-        .then(function (response) {
-          matchData.totalcapacity = response.data["numberofseats"];
-          matchData.vacantseats = response.data["numberofseats"];
-          matchData.reservedseats = 0;
-          console.log("Capacityy", matchData.totalcapacity);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      //update data
-      // matchData.id = selectedMatchId;
-      // const timeoffset = matchd.toISOString().split("T")[1].substring(0, 2);
-      // console.log("TIMEOFFFSETT", timeoffset);
-      // if (parseInt(timeoffset, 10) > 0) matchd.setDate(matchd.getDate() + 1);
-      const matchd = new Date(matchData.matchdate);
-      matchData.matchdate = matchd.toISOString().split("T")[0];
-
-      axios
-        .put(
-          "http://localhost:8808/EFA_manager/create_new_match/edit_match",
-          matchData
-        )
-        .then(function (response) {
-          console.log("RESPONSE UPDATE", response);
-          setValidated(true);
-        })
-        .catch(function (error) {
-          setValidated(false);
-          seterrorMsg("Error Duplicated Match");
-          console.log("ghalaaat");
-          setModalShow(true);
-
-          console.log(error);
-        });
+      // console.log(matchData);
+      //queries
+      console.log("old stadd ", oldStadium);
+      console.log("current stadd ", matchData.stadiumname);
+      if (oldStadium == matchData.stadiumname) {
+        console.log("They are the same ");
+        updateMatchInDbWithoutStadium();
+      } else {
+        console.log("They are NOTTTT the same ");
+        deletOldSeatsFromDB();
+        getCapacityFromDb();
+      }
+      //if matchData.stadium name != old stadium
+      //yb2a e3ml update aady le kolo w dalet el reservations el adeema [ab3tlha matchid] w e3ml insert le kol el seats vacant
+      //else if matchData.stadium name == old stadium
+      //e3ml update le kol haga gher el stad fa hanady func update_without_stad
     }
-
-    // setValidated(true);
-    // e.preventDefault();
-    // console.log("Submitted:", matchData);
   };
-
   useEffect(() => {
     // Fetch matches when the component mounts
     fetchMatches()
@@ -165,9 +229,11 @@ function EditMatch() {
                   setDisplayEditForm(true);
                   setSelectedMatchId(match.id);
                   matchData.id = match.id;
-                  // console.log("IDDDDDDDDD", matchData.id);
+                  setOldStadium(match.stadiumname);
+                  console.log("OLD STADIUMM", match.stadiumname);
                   setMatchData(match);
                   // console.log("DATEEE", match.matchdate)
+                  ref.current?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 <div>
@@ -179,7 +245,12 @@ function EditMatch() {
           ))}
         </div>
         {displayEditForm && (
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form
+            ref={ref}
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
             <Form.Group className="mb-3 Formclass" controlId="formHomeTeam">
               <Form.Label className="Titles">Home Team</Form.Label>
               <Form.Select
