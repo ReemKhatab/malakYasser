@@ -92,8 +92,10 @@ function EditMatch() {
 
       //update data
       // matchData.id = selectedMatchId;
+      // const timeoffset = matchd.toISOString().split("T")[1].substring(0, 2);
+      // console.log("TIMEOFFFSETT", timeoffset);
+      // if (parseInt(timeoffset, 10) > 0) matchd.setDate(matchd.getDate() + 1);
       const matchd = new Date(matchData.matchdate);
-      // matchd.setDate(matchd.getDate() + 1);
       matchData.matchdate = matchd.toISOString().split("T")[0];
 
       axios
@@ -163,8 +165,9 @@ function EditMatch() {
                   setDisplayEditForm(true);
                   setSelectedMatchId(match.id);
                   matchData.id = match.id;
-                  console.log("IDDDDDDDDD", matchData.id);
+                  // console.log("IDDDDDDDDD", matchData.id);
                   setMatchData(match);
+                  // console.log("DATEEE", match.matchdate)
                 }}
               >
                 <div>

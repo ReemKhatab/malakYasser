@@ -12,7 +12,7 @@ function ManagerViewMatches() {
     // Fetch matches when the component mounts
     fetchMatches()
       .then(() => {
-        console.log(Matches);
+        console.log("MANAGER MATCHES",Matches);
         setMatches(Matches);
       })
       .catch((error) => {

@@ -258,6 +258,9 @@ app.get(
 app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
   const q =
     "INSERT INTO `projconsultation`.`matches` (`hometeam`, `awayteam`, `matchdate`, `matchtime`, `stadiumname`, `refree`, `lineman1`, `lineman2`, `totalcapacity`, `vacantseats`, `reservedseats`) VALUES (?, ?,?,?, ?,?, ?, ?,?,?,?)";
+
+  const selectQuery = "SELECT LAST_INSERT_ID() AS insertedId";
+
   const hometeam = request.body.hometeam;
   const awayteam = request.body.awayteam;
   const matchdate = request.body.matchdate;
@@ -270,7 +273,7 @@ app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
   const vacantseats = request.body.vacantseats;
   const reservedseats = request.body.reservedseats;
 
-  // console.log("VALUESSS", request.body, request.query.password);
+  console.log("VALUESSS MATCHHH", request.body);
 
   db.query(
     q,
@@ -294,29 +297,37 @@ app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
       }
       // if (result.length > 0) {
       console.log("LENGTH", result.length);
-      return response.json(result);
-      // } else {
-      //   return response
-      //     .status(401)
-      //     .json({ error: "Invalid inputttttttttt" });
-      // }
+      // return response.json(result);
+      db.query(selectQuery, (selectError, results) => {
+        if (selectError) {
+          console.log(selectError);
+          return response
+            .status(401)
+            .json({ error: "Error retrieving inserted ID" });
+        }
+        const insertedId = results[0].insertedId;
+        console.log("Inserted ID:", insertedId);
+        return response.json({ insertedId });
+      });
     }
   );
 });
 
-// app.put("/siteadministrator/updateActivateUser", (request, response) => {
-//   const q = "UPDATE USERS SET activated=? WHERE username = ?";
-//   const username = request.body[0];
-//   const activated = request.body[1];
-//   console.log("user to update: ", activated, username);
-//   console.log("received an update request: " + request.url);
-//   db.query(q, [activated, username], (error, result) => {
-//     if (error) return response.json(error);
-//     else {
-//       return response.json(result);
-//     }
-//   });
-// });
+app.post("/EFA_manager/create_new_match/add_seat", (request, response) => {
+  const q =
+    "INSERT INTO `projconsultation`.`seats` (`matchid`, `seatid`, `reserved`) VALUES (?, ?,?)";
+  const matchid = request.body.matchid;
+  const seatid = request.body.seatid;
+  const reserved = 0;
+  console.log("VALUESSS SEATT", request.body);
+  db.query(q, [matchid, seatid, reserved], (error, result) => {
+    if (error) {
+      console.log(error);
+      return response.status(401).json({ error: "Can't insert seats" });
+    }
+    return response.json(result);
+  });
+});
 
 app.put("/EFA_manager/create_new_match/edit_match", (request, response) => {
   const q =
@@ -436,54 +447,40 @@ app.get("/view_matches", (request, response) => {
 /////////////////////////////////checkouttt///////////////////////
 
 app.post("/checkout", (request, response) => {
-  const q = "update seats set reserved=? , username=? where matchid=? && seatid=?"
-  
-  
+  const q =
+    "update seats set reserved=? , username=? where matchid=? && seatid=?";
   const reserved = request.body.reserved;
   const matchid = request.body.matchid;
   const seatid = request.body.seatid;
-  const username = request.body.username
+  const username = request.body.username;
   console.log("checkkout", request.body);
-  db.query(
-    q,
-    [
-      reserved,
-      username,
-      matchid,
-      seatid,
-      
-    ],
-    (error, result) => {
-      if (error)
-      {
-        return response
-        .status(401)
-        .json({ error: "duplicate" });
-      }
-      console.log(result)
-      
-      
+  db.query(q, [reserved, username, matchid, seatid], (error, result) => {
+    if (error) {
+      return response.status(401).json({ error: "duplicate" });
     }
-    );
+    console.log(result);
   });
-  app.get("/tickets", (request, response) => {
-    const q = "SELECT matches.id, matches.hometeam, matches.awayteam, seats.seatid , matches.matchdate, matches.matchtime ,seats.ticketid " 
-            + "FROM matches INNER JOIN seats ON matches.id = seats.matchid where seats.username = ?"
-    const username = request.query.username
-    console.log("received a tickettttttttt: " + request.url);
-    db.query(q,[username] ,  (error, result) => {
-      if (error) return response.json(error);
-      console.log(result)
-      return response.json(result);
-    });
+});
+//E3MLO RETRIEVE LEL SEAT ID BY ORDER
+app.get("/tickets", (request, response) => {
+  const q =
+    "SELECT matches.id, matches.hometeam, matches.awayteam, seats.seatid , matches.matchdate, matches.matchtime ,seats.ticketid " +
+    "FROM matches INNER JOIN seats ON matches.id = seats.matchid where seats.username = ?";
+  const username = request.query.username;
+  console.log("received a tickettttttttt: " + request.url);
+  db.query(q, [username], (error, result) => {
+    if (error) return response.json(error);
+    console.log(result);
+    return response.json(result);
   });
-  
-  app.listen(8808, () => {
-    console.log("connectedd bnjjnjnjbbb");
-  });
-  //commands
-  
-  //npm init -y
+});
+
+app.listen(8808, () => {
+  console.log("connectedd bnjjnjnjbbb");
+});
+//commands
+
+//npm init -y
 //npm i express mysql nodemon
 //npm i axios f el client side: da ashan react y2dar yt3amel m3a el requests w db
 
