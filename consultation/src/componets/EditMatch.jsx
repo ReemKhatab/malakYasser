@@ -70,7 +70,8 @@ function EditMatch() {
         console.log("RESPONSE UPDATE", response);
         setValidated(true);
         seterrorMsg("");
-        addSeatsToDB();
+        deletOldSeatsFromDB();
+        addSeatsToDB(matchData.id, matchData.totalcapacity);
       })
       .catch(function (error) {
         setValidated(false);
@@ -177,7 +178,6 @@ function EditMatch() {
         updateMatchInDbWithoutStadium();
       } else {
         console.log("They are NOTTTT the same ");
-        deletOldSeatsFromDB();
         getCapacityFromDb();
       }
       //if matchData.stadium name != old stadium
@@ -220,7 +220,7 @@ function EditMatch() {
         <h2>Edit Matches</h2>
         <div className="row mt-5 mb-5">
           {matches.map((match, index) => (
-            <div className="col-md-3" key={index}>
+            <div className="col-md-4" key={index}>
               <Button
                 className="ButtonEdit"
                 variant="primary"
@@ -353,7 +353,7 @@ function EditMatch() {
                 value={matchData.refree}
                 onChange={handleChange}
                 required
-                minLength={5}
+                minLength={3}
                 maxLength={20}
               />
               <Form.Control.Feedback type="invalid">
@@ -370,7 +370,7 @@ function EditMatch() {
                 value={matchData.lineman1}
                 onChange={handleChange}
                 required
-                minLength={5}
+                minLength={3}
                 maxLength={20}
               />
               <Form.Control.Feedback type="invalid">
@@ -386,7 +386,7 @@ function EditMatch() {
                 name="lineman2"
                 value={matchData.lineman2}
                 onChange={handleChange}
-                minLength={5}
+                minLength={3}
                 maxLength={20}
                 required
               />

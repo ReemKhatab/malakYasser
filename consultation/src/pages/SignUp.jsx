@@ -67,6 +67,8 @@ function SignUp() {
         .then((response) => {
           console.log("testttt");
           console.log(response.data);
+          // setError("")
+          setModalShow(true);
         })
         .catch(function (error) {
           console.error("Error adding stadium:", error);
@@ -93,10 +95,12 @@ function SignUp() {
                 type="text"
                 placeholder="Enter username"
                 name="username"
+                minLength={3}
+                maxLength={20}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Username must be 3 - 20 characters
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup
@@ -108,10 +112,12 @@ function SignUp() {
                 type="password"
                 placeholder="Enter password"
                 name="pass"
+                minLength={8}
+                maxLength={20}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Password must be 8 - 20 characters
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup
@@ -123,10 +129,12 @@ function SignUp() {
                 type="text"
                 placeholder="Enter FirstName"
                 name="firstName"
+                minLength={3}
+                maxLength={20}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Firstname must be 3 - 20 characters
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup
@@ -138,10 +146,12 @@ function SignUp() {
                 type="text"
                 placeholder="Last Name"
                 name="LastName"
+                minLength={3}
+                maxLength={20}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Lastname must be 3 - 20 characters
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login" controlId="email">
@@ -153,7 +163,7 @@ function SignUp() {
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Email must be valid
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup className="mb-3 Formclass ">
@@ -177,7 +187,7 @@ function SignUp() {
                 />
               </div>
               <Form.Control.Feedback type="invalid">
-                required
+                Required
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup
@@ -192,7 +202,7 @@ function SignUp() {
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Required
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup
@@ -207,7 +217,7 @@ function SignUp() {
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Required
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login" controlId="City">
@@ -219,7 +229,7 @@ function SignUp() {
                 required
               />
               <Form.Control.Feedback type="invalid">
-                required
+                Required
               </Form.Control.Feedback>
             </FormGroup>
             <FormGroup>
@@ -239,6 +249,9 @@ function SignUp() {
                 required
                 className="gender-radio"
               />
+              <Form.Control.Feedback type="invalid">
+                Required
+              </Form.Control.Feedback>
             </FormGroup>
             <Button className="SubmitLogin" variant="primary" type="submit">
               SignUp
@@ -249,8 +262,8 @@ function SignUp() {
                 onHide={() => setModalShow(false)}
                 message={
                   error
-                    ? "Error adding stadium. change stadium data and try again."
-                    : `You just added a new stadium with `
+                    ? "Error signning up. Choose another username and try again."
+                    : `Signed up sucessfully `
                 }
               />
             </div>

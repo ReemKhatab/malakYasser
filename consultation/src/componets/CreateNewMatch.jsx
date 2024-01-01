@@ -88,9 +88,9 @@ function CreateNewMatch() {
 
   const addMatchToDB = () => {
     //insert match in db
-    const matchd = new Date(matchData.matchdate);
-    matchd.setHours(matchd.getHours() + 10);
-    matchData.matchdate = matchd;
+    // const matchd = new Date(matchData.matchdate);
+    // matchd.setHours(matchd.getHours() + 10);
+    // matchData.matchdate = matchd;
     axios
       .post(
         "http://localhost:8808/EFA_manager/create_new_match/submit_match",
@@ -255,7 +255,7 @@ function CreateNewMatch() {
             value={matchData.refree}
             onChange={handleChange}
             required
-            minLength={5}
+            minLength={3}
             maxLength={20}
           />
           <Form.Control.Feedback type="invalid">
@@ -272,7 +272,7 @@ function CreateNewMatch() {
             value={matchData.lineman1}
             onChange={handleChange}
             required
-            minLength={5}
+            minLength={3}
             maxLength={20}
           />
           <Form.Control.Feedback type="invalid">
@@ -288,7 +288,7 @@ function CreateNewMatch() {
             name="lineman2"
             value={matchData.lineman2}
             onChange={handleChange}
-            minLength={5}
+            minLength={3}
             maxLength={20}
             required
           />

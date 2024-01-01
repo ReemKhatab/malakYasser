@@ -1,5 +1,6 @@
 .ButtonShow {
   font-size: 125%;
+  margin: 3%;
   background-color: rgb(6, 6, 149);
   --bs-btn-active-bg: rgb(62, 62, 232);
   --bs-btn-active-border-color: rgb(62, 62, 232);
@@ -12,6 +13,8 @@
 }
 .ButtonDelete {
   font-size: x-large;
+  /* margin: 3%; */
+  
   background-color: hsl(261deg 80% 48%);
   --bs-btn-active-bg: hsla(261, 80%, 48%, 0.748);
   --bs-btn-active-border-color: hsla(261, 80%, 48%, 0.748);
@@ -40,6 +43,14 @@
 }
 
 .ButtonisActivated {
+  margin: 6%;
   font-size: large;
   border: none;
+}
+
+.content{
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  flex-direction: column;
 }

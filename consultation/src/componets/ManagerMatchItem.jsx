@@ -7,7 +7,7 @@ function ManagerMatchItem({ match }) {
   const matchTime = match.matchtime ? match.matchtime.substring(0, 5) : "";
   return (
 
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "32rem" }}>
       <Card.Body>
         <Card.Title text="primary">
           {match.hometeam} vs {match.awayteam}

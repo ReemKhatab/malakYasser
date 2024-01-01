@@ -167,7 +167,7 @@ function SiteAdministrator() {
       <div className="container background">
         <h2>Manage Users</h2>
         <div className="row">
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <Button
               className="ButtonShow"
               variant="primary"
@@ -184,7 +184,7 @@ function SiteAdministrator() {
               Show Customers
             </Button>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <Button
               className="ButtonShow"
               variant="primary"
