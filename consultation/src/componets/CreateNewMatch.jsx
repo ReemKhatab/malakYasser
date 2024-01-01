@@ -88,9 +88,9 @@ function CreateNewMatch() {
 
   const addMatchToDB = () => {
     //insert match in db
-    const matchd = new Date(matchData.matchdate);
-    matchd.setHours(matchd.getHours() + 10);
-    matchData.matchdate = matchd;
+    // const matchd = new Date(matchData.matchdate);
+    // matchd.setHours(matchd.getHours() + 10);
+    // matchData.matchdate = matchd;
     axios
       .post(
         "http://localhost:8808/EFA_manager/create_new_match/submit_match",

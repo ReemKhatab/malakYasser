@@ -3,6 +3,8 @@
 }
 
 .ButtonEdit {
+  /* size: 60%; */
+  width: 100%;
   font-size: x-large;
   margin: 5%;
   padding: 5%;
