@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysqlpassword8",
+  password: "Reem@2002=01",
   database: "projconsultation",
 });
 db.connect((err) => {

@@ -19,41 +19,42 @@ const Cart = () => {
   const [modalShow, setModalShow] = useState(false);
   const [selectedID, setselectedID] = useState();
 
+  const setDate = (date) => {
+    const newdate = new Date(date);
+    newdate.setDate(newdate.getDate() + 1);
+    const newdateFormatted = newdate.toISOString().split("T")[0];
+    return newdateFormatted;
+  };
+
   const handleCheckboxChange = () => {
     console.log("wa7sh");
   };
   const disbaleCancel = (date) => {
-    const newdate = new Date()
-    const matchdate = new Date(date)
-    newdate.setDate(newdate.getDate() + 3)
-    if( matchdate >= newdate )
-      return false
-    return true
-  }
+    const newdate = new Date();
+    const matchdate = new Date(date);
+    newdate.setDate(newdate.getDate() + 4);
+    if (matchdate >= newdate) return false;
+    return true;
+  };
   const handleYes = (ticketid) => {
     console.log("ALOOOOOOOO");
     console.log(ticketid);
-    settickets(tickets.filter((ticket) => ticket.ticketid !== ticketid))
-    setModalShow(false)
+    settickets(tickets.filter((ticket) => ticket.ticketid !== ticketid));
+    setModalShow(false);
     axios
-    .post("http://localhost:8808/cancelticket", {
-        ticketid: ticketid
-    })
-    .then((response) => {
-        
-    })
-    .catch(function (error) {
-        
-    });
+      .post("http://localhost:8808/cancelticket", {
+        ticketid: ticketid,
+      })
+      .then((response) => {})
+      .catch(function (error) {});
   };
   const popup = (ticketid) => {
     console.log("reee");
     setModalShow(true);
-    setselectedID(ticketid)
+    setselectedID(ticketid);
   };
 
   useEffect(() => {
-  
     axios
       .get("http://localhost:8808/tickets", {
         params: { username: localStorage.getItem("username") },
@@ -80,21 +81,21 @@ const Cart = () => {
                   </Card.Title>
                   <div className="Details">
                     <Card.Text>Seat no.: {ticket.seatid}</Card.Text>
-                    <Card.Text>
-                      Date: {ticket.matchdate.split("T")[0]}
-                    </Card.Text>
-                    <Card.Text>
-                      Kickoff: {ticket.matchtime}
-                    </Card.Text>
+                    <Card.Text>Date: {setDate(ticket.matchdate)}</Card.Text>
+                    <Card.Text>Kickoff: {ticket.matchtime}</Card.Text>
                     <Card.Text>Ticket ID: {ticket.ticketid}</Card.Text>
                   </div>
                   <Button
                     className="ButtonSubmit"
                     variant="primary"
                     type="submit"
-                    onClick={() => {popup(ticket.ticketid)}}
+                    onClick={() => {
+                      popup(ticket.ticketid);
+                    }}
                     hidden={disbaleCancel(ticket.matchdate)}
-                  >Cancel </Button>
+                  >
+                    Cancel{" "}
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

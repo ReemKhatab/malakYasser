@@ -18,6 +18,13 @@ function SignUp() {
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [validated, setValidated] = useState(false);
+
+  const maxDate = () => {
+    const today = new Date();
+    const todayFormatted = today.toISOString().split("T")[0];
+    return todayFormatted;
+  };
+
   const handleSubmit = (e) => {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -200,6 +207,7 @@ function SignUp() {
                 placeholder="Enter birthdate"
                 name="birthdate"
                 required
+                max={maxDate()}
               />
               <Form.Control.Feedback type="invalid">
                 Required
