@@ -29,25 +29,9 @@ function ReserveTicket() {
 
   const location = useLocation();
   const matchId = location.pathname.split("/")[3];
-  // const selectedMatch = Matches.find(
-  //   (match) => match.id === parseInt(matchId, 10)
-    
-  // );
-
   const [matctdetails,setmatchdetails]=useState();
   const [stadiumdetails,setstadiumdetails]=useState();
   const [loading,setloadng]=useState(true);
-
-  // const fetchdata = () => {
-  //   // Using Axios to make an asynchronous request
-  //   axios
-  //   .get("http://localhost:8808/seats" , {
-  //     params : {matchid : parseInt(matchId, 10)}})
-  //   .then(function (response) {
-  //     setseatsdetails(response.data);
-      
-  //   })
-  // }
 
   useEffect(() => {
 

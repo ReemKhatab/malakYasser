@@ -1,9 +1,8 @@
 // Checkout.jsx
 import { React, useLocation, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import PopUp from "../componets/PopUp.jsx";
+import PopUpTwo from "./PopUpTwo";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 const Checkout = ({
   matchid,
@@ -18,6 +17,9 @@ const Checkout = ({
   setModalShow,
 }) => {
   const [mytickets, setmytickets] = useState([]);
+  const [error, setError] = useState(null);
+  // const [modalShow, setModalShow] = React.useState(false);
+
   useEffect(() => {
     axios
       .get("http://localhost:8808/tickets", {
@@ -27,14 +29,23 @@ const Checkout = ({
         console.log(response.data);
         setmytickets(response.data);
       });
-  },[]);
+  }, []);
+
   const handleCheckout = (e) => {
     const username = localStorage.getItem("username");
     const ticketscollision = mytickets.filter(
-      (ticket) => ((ticket.matchdate == match.matchdate)&&(ticket.id!=match.id))
-      );
-      if (ticketscollision.length == 0) {
-      setModalShow(true);
+      (ticket) => ticket.matchdate == match.matchdate && ticket.id != match.id
+    );
+    if (ticketscollision.length == 0) {
+      // axios
+      //   .get("http://localhost:8808/get_all_tickets", {
+      //     params: { matchid: parseInt(matchid, 10) },
+      //   })
+      //   .then((response) => {
+      //     console.log(response.data);
+          
+      //   });
+
       axios
         .post("http://localhost:8808/checkout", {
           matchid: parseInt(matchid, 10),
@@ -49,17 +60,25 @@ const Checkout = ({
               vacantseats: match.vacantseats - selectedSeats.length,
               reservedseats: match.reservedseats + selectedSeats.length,
             })
-            .then((response) => {
-              console.log("mostafa");
+            .then(() => {
+              console.log("HI");
+              setError("");
+              setModalShow(true);
             });
         })
         .catch(function (error) {
+          setError(
+            "Sorry! Seats are just reserved. Try reserving another seat."
+          );
+          setModalShow(true);
           console.error("hadhagaz", error);
-          
         });
-    }
-    else{
-      console.log("mahgztsh ")
+    } else {
+      setError(
+        "You can't reserve 2 matches on the same day. Choose another match or cancel the other ticket and try again."
+      );
+      setModalShow(true);
+      console.log("mahgztsh");
     }
   };
   const isCreditCardValid = () => {
@@ -155,7 +174,15 @@ const Checkout = ({
             Checkout
           </Button>
           <div>
-            <PopUp show={modalShow} onHide={() => setModalShow(false)} />
+            <PopUpTwo
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              message={
+                error
+                  ? error
+                  : "Your purchase is done successfully. You can view your tickets in your cart."
+              }
+            />
           </div>
         </Form>
       </div>

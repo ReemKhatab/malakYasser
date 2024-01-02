@@ -33,7 +33,6 @@ function AddStadium() {
       e.stopPropagation();
       setModalShow(true);
       console.log("Submitted:", stadiumData);
-
       axios
         .post("http://localhost:8808/EFA_manager/add_stadium", {
           stadiumname: stadiumData.stadiumname,

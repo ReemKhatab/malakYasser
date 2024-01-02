@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Reem@2002=01",
+  password: "mysqlpassword8",
   database: "projconsultation",
 });
 db.connect((err) => {
@@ -516,25 +516,51 @@ app.get("/view_matches", (request, response) => {
 });
 /////////////////////////////////checkouttt///////////////////////
 
-app.post("/checkout", (request, response) => {
+// app.get("/get_all_tickets", (request, response) => {
+//   const q =
+//     "SELECT seatid FROM projconsultation.seats WHERE matchid=? AND reserved=1";
+//   console.log("received a request: " + request.url);
+//   const matchid = request.query.matchid;
+//   db.query(q, [matchid], (error, result) => {
+//     if (error) return response.json(error);
+//     return response.json(result);
+//   });
+// });
+
+app.post("/checkout", async (request, response) => {
   const q =
     "update seats set reserved=? , username=? where matchid=? && seatid=? && reserved=0";
   const reserved = request.body.reserved;
   const matchid = request.body.matchid;
   const seats = request.body.seats;
   const username = request.body.username;
-  console.log("checkkout", request.body);
-  for (const seat of seats) {
-    db.query(q, [reserved, username, matchid, seat], (error, result) => {
-      if (error) {
-        console.log("errrrrrrrrrrrrrrrrrrr");
-        return response.status(401).json({ error: "error" });
+  console.log("checkout", request.body);
+
+  try {
+    for (const seat of seats) {
+      const result = await new Promise((resolve, reject) => {
+        db.query(q, [reserved, username, matchid, seat], (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      if (result.affectedRows === 0) {
+        return response.status(401).json({ error: "Can't checkout" });
       }
       console.log(result);
-    });
+    }
+
+    return response.json("tmam");
+  } catch (error) {
+    console.log("Error:", error);
+    return response.status(401).json({ error: "Database error" });
   }
-  return response.json("tmam");
 });
+
 app.post("/reserving", (request, response) => {
   const q = "update matches set reservedseats=? , vacantseats=? where id=? ";
   const reservedseats = request.body.reservedseats;
@@ -546,7 +572,7 @@ app.post("/reserving", (request, response) => {
       return response.status(401).json({ error: "duplicate" });
     }
     console.log(result);
-    return result;
+    return response.json("tmam");
   });
 });
 

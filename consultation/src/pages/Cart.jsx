@@ -104,7 +104,7 @@ const Cart = () => {
                     }}
                     hidden={disbaleCancel(ticket.matchdate)}
                   >
-                    Cancel{" "}
+                    Cancel Ticket{" "}
                   </Button>
                 </Card.Body>
               </Card>

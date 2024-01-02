@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { Stadiums, fetchStadiums } from "../helpers/Stadiums";
 import { Teams, fetchTeams } from "../helpers/Teams";
 import axios from "axios";
-import PopUpThree from "./PopUpThree";
+import PopUpTwo from "./PopUpTwo";
 
 const initialMatchData = {
   hometeam: "",
@@ -23,8 +23,10 @@ function CreateNewMatch() {
   const [matchData, setMatchData] = useState(initialMatchData);
   const [teams, setTeams] = useState(Teams);
   const [stadiums, setStadiums] = useState(Stadiums);
+
   const [validated, setValidated] = useState(false);
   const [errorMsg, seterrorMsg] = useState("");
+  const [errorPopUp, setErrorPopUp] = useState(null);
   const [modalShow, setModalShow] = React.useState(false);
 
   const minDate = () => {
@@ -70,7 +72,6 @@ function CreateNewMatch() {
 
   const addSeatsToDB = (matchid, totalcapacity) => {
     for (let i = 1; i <= totalcapacity; i++) {
-     
       axios
         .post("http://localhost:8808/EFA_manager/create_new_match/add_seat", {
           matchid: matchid,
@@ -88,10 +89,6 @@ function CreateNewMatch() {
   };
 
   const addMatchToDB = () => {
-    //insert match in db
-    // const matchd = new Date(matchData.matchdate);
-    // matchd.setHours(matchd.getHours() + 10);
-    // matchData.matchdate = matchd;
     axios
       .post(
         "http://localhost:8808/EFA_manager/create_new_match/submit_match",
@@ -102,17 +99,19 @@ function CreateNewMatch() {
         console.log(response);
         setValidated(true);
         seterrorMsg("");
+        setErrorPopUp("");
+        setModalShow(true);
         const insertedId = response.data.insertedId;
         console.log("Inserted ID in React.js:", insertedId);
-
         //add to seats table
         addSeatsToDB(insertedId, matchData.totalcapacity);
       })
       .catch(function (error) {
         setValidated(false);
+        setErrorPopUp(error);
         seterrorMsg("Error Duplicated Match");
-        console.log("ghalaaat");
         setModalShow(true);
+        console.log("ghalaaat");
         console.log(error);
       });
   };
@@ -147,10 +146,6 @@ function CreateNewMatch() {
           console.log(error);
         });
     }
-
-    // setValidated(true);
-    // e.preventDefault();
-    // console.log("Submitted:", matchData);
   };
 
   return (
@@ -196,7 +191,15 @@ function CreateNewMatch() {
           {errorMsg && <p style={{ color: "crimson" }}>{errorMsg}</p>}
         </Form.Group>
 
-        <PopUpThree show={modalShow} onHide={() => setModalShow(false)} />
+        <PopUpTwo
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          message={
+            errorPopUp
+              ? "Error creating match. Change match data and try again."
+              : "Match is created successfully"
+          }
+        />
 
         <Form.Group className="mb-3 Formclass" controlId="formStadium">
           <Form.Label className="Titles">Choose Stadium</Form.Label>

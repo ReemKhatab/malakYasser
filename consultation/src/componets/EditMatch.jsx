@@ -5,7 +5,7 @@ import { Stadiums, fetchStadiums } from "../helpers/Stadiums";
 import { Teams, fetchTeams } from "../helpers/Teams";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import PopUpThree from "./PopUpThree";
+import PopUpTwo from "./PopUpTwo";
 
 const initialMatchData = {
   id: "",
@@ -33,9 +33,11 @@ function EditMatch() {
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState(Teams);
   const [stadiums, setStadiums] = useState(Stadiums);
+
   const [validated, setValidated] = useState(false);
   const [errorMsg, seterrorMsg] = useState("");
   const [modalShow, setModalShow] = React.useState(false);
+  const [errorPopUp, setErrorPopUp] = useState(null);
 
   const minDate = () => {
     const tomorrow = new Date();
@@ -70,14 +72,17 @@ function EditMatch() {
         console.log("RESPONSE UPDATE", response);
         setValidated(true);
         seterrorMsg("");
+        setErrorPopUp("");
+        setModalShow(true);
         deletOldSeatsFromDB();
         addSeatsToDB(matchData.id, matchData.totalcapacity);
       })
       .catch(function (error) {
         setValidated(false);
         seterrorMsg("Error Duplicated Match");
-        console.log("ghalaaat");
+        setErrorPopUp(error);
         setModalShow(true);
+        console.log("ghalaaat");
         console.log(error);
       });
   };
@@ -94,12 +99,15 @@ function EditMatch() {
         console.log("RESPONSE UPDATE WITHOUT STAD", response);
         setValidated(true);
         seterrorMsg("");
+        setErrorPopUp("");
+        setModalShow(true);
       })
       .catch(function (error) {
         setValidated(false);
+        setErrorPopUp(error);
         seterrorMsg("Error Duplicated Match");
-        console.log("ghalaaat");
         setModalShow(true);
+        console.log("ghalaaat");
         console.log(error);
       });
   };
@@ -290,8 +298,15 @@ function EditMatch() {
               {errorMsg && <p style={{ color: "crimson" }}>{errorMsg}</p>}
             </Form.Group>
 
-            <PopUpThree show={modalShow} onHide={() => setModalShow(false)} />
-
+            <PopUpTwo
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              message={
+                errorPopUp
+                  ? "Error editing match. Change match data and try again."
+                  : "Match is edited successfully"
+              }
+            />
             <Form.Group className="mb-3 Formclass" controlId="formStadium">
               <Form.Label className="Titles">Stadium</Form.Label>
               <Form.Select
