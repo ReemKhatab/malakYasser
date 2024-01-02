@@ -183,9 +183,9 @@ function SiteAdministrator() {
   };
 
   return (
-    <>
+    <div className=" background">
       <SiteAdminNavbar />
-      <div className="container background">
+      <div className="container">
         <h2>Manage Users</h2>
         <div className="row">
           <div className="col-md-2">
@@ -261,7 +261,7 @@ function SiteAdministrator() {
           />
         )}
       </div>
-    </>
+    </div>
   );
 }
 
