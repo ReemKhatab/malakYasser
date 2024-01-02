@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import SiteAdminNavbar from "../componets/SiteAdminNavbar";
 import "../styles/SiteAdministrator.css";
 import axios from "axios";
+import { InputGroup, FormControl } from "react-bootstrap";
 
 function SiteAdministrator() {
   const [users, setUsers] = useState(Users);
@@ -14,6 +15,7 @@ function SiteAdministrator() {
   const [selectedManagers, setSelectedManagers] = useState([]);
   const [displayCustomers, setDisplayCustomers] = useState(true);
   const [displayManagers, setDisplayManagers] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleActivatedUser = (userId) => {
     axios
@@ -134,6 +136,25 @@ function SiteAdministrator() {
     });
   };
 
+  const handleSearch = () => {
+    console.log("alo");
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.currentTarget.value);
+    if (displayCustomers) {
+      const searchedNames = Users.filter((item) => {
+        return item.username.includes(e.currentTarget.value);
+      });
+      setUsers(searchedNames);
+    } else if (displayManagers) {
+      const searchedNames = Managers.filter((item) => {
+        return item.username.includes(e.currentTarget.value);
+      });
+      setManagers(searchedNames);
+    }
+  };
+
   const handleDeleteManager = () => {
     selectedManagers.forEach((selecteduser, index) => {
       axios
@@ -202,6 +223,25 @@ function SiteAdministrator() {
             </Button>
           </div>
         </div>
+        <div>
+          <InputGroup className="mb-3">
+            <FormControl
+              placeholder="Search..."
+              aria-label="Search..."
+              aria-describedby="basic-addon2"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </InputGroup>
+        </div>
+        {/*
+            <InputGroup.Append>
+              <Button variant="outline-secondary" onClick={handleSearch}>
+                Search
+              </Button>
+            </InputGroup.Append>
+          </InputGroup> 
+        </div>*/}
         {displayCustomers && (
           <UserList
             users={users}

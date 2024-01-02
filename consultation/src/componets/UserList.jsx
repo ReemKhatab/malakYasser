@@ -1,5 +1,5 @@
 // UserList.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Form } from "react-bootstrap";
 
@@ -10,6 +10,13 @@ const UserList = ({
   toggleActivated,
   handleDelete,
 }) => {
+  const [newuser , setNewUser] = useState(users)
+
+  useEffect(() => {
+   setNewUser(users)
+
+  },[users])
+
   return (
     <div className="container content">
       <div className="row">
@@ -26,7 +33,7 @@ const UserList = ({
         </div>
       </div>
       
-        {users.map((user, index) => (
+        {newuser.map((user, index) => (
           <div className="row">
             <div className="col-md-10" key={user.username}>
               <Form>
