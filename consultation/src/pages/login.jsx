@@ -16,10 +16,10 @@ let LoggedIn = false;
 
 function Login() {
   const [errorUsernameMessage, setErrorUsernameMessage] = useState(
-    "Username must be 5 - 20 characters"
+    "Required"
   );
   const [errorPasswordMessage, setErrorPasswordMessage] = useState(
-    "Password must be 5 - 20 characters"
+    "Required"
   );
   const [validated, setValidated] = useState(false);
   const [values, setValues] = useState({
@@ -42,15 +42,15 @@ function Login() {
     const username = form.querySelector("#Username");
     const password = form.querySelector("#Password");
 
-    if (username.value.length < 5 || username.value.length > 20) {
+    if (username.value.length < 3 || username.value.length > 20) {
       username.setCustomValidity("U");
-      setErrorUsernameMessage("Username must be 5 - 20 characters");
+      setErrorUsernameMessage("Required");
     } else {
       username.setCustomValidity("");
     }
     if (password.value.length < 8 || password.value.length > 20) {
       password.setCustomValidity("P");
-      setErrorPasswordMessage("Password must be 5 - 20 characters");
+      setErrorPasswordMessage("Required");
     } else {
       password.setCustomValidity("");
     }
