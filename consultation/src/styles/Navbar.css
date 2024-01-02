@@ -4,6 +4,12 @@
   text-decoration: none;
 }
 
+.profile{
+  margin-left: 50%;
+}
+.navbar-nav{
+  width:100%
+}
 .navbar a {
   color: white;
 }
