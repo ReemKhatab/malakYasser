@@ -18,6 +18,7 @@ const Checkout = ({
 }) => {
   const [mytickets, setmytickets] = useState([]);
   const [error, setError] = useState(null);
+
   // const [modalShow, setModalShow] = React.useState(false);
 
   useEffect(() => {
@@ -33,46 +34,54 @@ const Checkout = ({
 
   const handleCheckout = (e) => {
     const username = localStorage.getItem("username");
+    let check = true;
     const ticketscollision = mytickets.filter(
       (ticket) => ticket.matchdate == match.matchdate && ticket.id != match.id
     );
     if (ticketscollision.length == 0) {
-      // axios
-      //   .get("http://localhost:8808/get_all_tickets", {
-      //     params: { matchid: parseInt(matchid, 10) },
-      //   })
-      //   .then((response) => {
-      //     console.log(response.data);
-          
-      //   });
-
       axios
-        .post("http://localhost:8808/checkout", {
-          matchid: parseInt(matchid, 10),
-          seats: selectedSeats,
-          reserved: 1,
-          username: username,
+        .get("http://localhost:8808/get_all_tickets", {
+          params: { matchid: parseInt(matchid, 10) },
         })
         .then((response) => {
-          axios
-            .post("http://localhost:8808/reserving", {
-              matchid: parseInt(matchid, 10),
-              vacantseats: match.vacantseats - selectedSeats.length,
-              reservedseats: match.reservedseats + selectedSeats.length,
-            })
-            .then(() => {
-              console.log("HI");
-              setError("");
-              setModalShow(true);
-            });
-        })
-        .catch(function (error) {
-          setError(
-            "Sorry! Seats are just reserved. Try reserving another seat."
+          console.log(response.data);
+          const alreadybooked = response.data.filter((booked) =>
+            selectedSeats.includes(booked.seatid)
           );
-          setModalShow(true);
-          console.error("hadhagaz", error);
+          if (alreadybooked.length > 0) {
+            check = false;
+          }
+          if (check) {
+            axios
+              .post("http://localhost:8808/checkout", {
+                matchid: parseInt(matchid, 10),
+                seats: selectedSeats,
+                reserved: 1,
+                username: username,
+              })
+              .then((response) => {
+                axios
+                  .post("http://localhost:8808/reserving", {
+                    matchid: parseInt(matchid, 10),
+                    vacantseats: match.vacantseats - selectedSeats.length,
+                    reservedseats: match.reservedseats + selectedSeats.length,
+                  })
+                  .then(() => {
+                    console.log("HI");
+                    setError("");
+                    setModalShow(true);
+                  });
+              })
+          }
+          else {
+              setError(
+                "Sorry! Seats are just reserved. Try reserving another seat."
+              );
+              setModalShow(true);
+              console.error("hadhagaz", error);
+            };
         });
+
     } else {
       setError(
         "You can't reserve 2 matches on the same day. Choose another match or cancel the other ticket and try again."

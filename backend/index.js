@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysqlpassword8",
+  password: "Bizo7245",
   database: "projconsultation",
 });
 db.connect((err) => {
@@ -516,29 +516,29 @@ app.get("/view_matches", (request, response) => {
 });
 /////////////////////////////////checkouttt///////////////////////
 
-// app.get("/get_all_tickets", (request, response) => {
-//   const q =
-//     "SELECT seatid FROM projconsultation.seats WHERE matchid=? AND reserved=1";
-//   console.log("received a request: " + request.url);
-//   const matchid = request.query.matchid;
-//   db.query(q, [matchid], (error, result) => {
-//     if (error) return response.json(error);
-//     return response.json(result);
-//   });
-// });
+app.get("/get_all_tickets", (request, response) => {
+  const q =
+    "SELECT seatid FROM projconsultation.seats WHERE matchid=? AND reserved=1";
+  console.log("received a request: " + request.url);
+  const matchid = request.query.matchid;
+  db.query(q, [matchid], (error, result) => {
+    if (error) return response.json(error);
+    return response.json(result);
+  });
+});
+
 
 app.post("/checkout", async (request, response) => {
   const q =
-    "update seats set reserved=? , username=? where matchid=? && seatid=? && reserved=0";
-  const reserved = request.body.reserved;
-  const matchid = request.body.matchid;
-  const seats = request.body.seats;
-  const username = request.body.username;
+    "UPDATE seats SET reserved=?, username=? WHERE matchid=? AND seatid=?";
+  const { reserved, matchid, seats, username } = request.body;
+
   console.log("checkout", request.body);
 
   try {
-    for (const seat of seats) {
-      const result = await new Promise((resolve, reject) => {
+    // Using Promise.all to wait for all queries to complete
+    const updatePromises = seats.map((seat) => {
+      return new Promise((resolve, reject) => {
         db.query(q, [reserved, username, matchid, seat], (error, result) => {
           if (error) {
             reject(error);
@@ -547,19 +547,73 @@ app.post("/checkout", async (request, response) => {
           }
         });
       });
+    });
 
-      if (result.affectedRows === 0) {
-        return response.status(401).json({ error: "Can't checkout" });
-      }
-      console.log(result);
-    }
+    // Wait for all queries to complete
+    const results = await Promise.all(updatePromises);
 
-    return response.json("tmam");
+    // Send a response once all queries are done
+    response.json({ success: true, results });
   } catch (error) {
-    console.log("Error:", error);
-    return response.status(401).json({ error: "Database error" });
+    // Handle errors
+    console.error("Error during checkout:", error);
+    response.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
+
+///////////////////////////////////////////badr checkout
+
+// app.post("/checkout", (request, response) => {
+//   const q =
+//     "update seats set reserved=? , username=? where matchid=? AND seatid=?";
+//   const reserved = request.body.reserved;
+//   const matchid = request.body.matchid;
+//   const seats = request.body.seats;
+//   const username = request.body.username;
+//   console.log("checkkout", request.body);
+//   for (const seat of seats) {
+//     db.query(q, [reserved, username, matchid, seat], (error, result) => {
+//       if (error) {
+//         return response.status(401).json({ error: "error" });
+//       }
+//       console.log(result);
+//     });
+//   }
+// });
+
+// app.post("/checkout", async (request, response) => {
+//   const q =
+//     "update seats set reserved=? , username=? where matchid=? && seatid=? && reserved=0";
+//   const reserved = request.body.reserved;
+//   const matchid = request.body.matchid;
+//   const seats = request.body.seats;
+//   const username = request.body.username;
+//   console.log("checkout", request.body);
+
+//   try {
+//     for (const seat of seats) {
+//       const result = await new Promise((resolve, reject) => {
+//         db.query(q, [reserved, username, matchid, seat], (error, result) => {
+//           if (error) {
+//             reject(error);
+//           } else {
+//             resolve(result);
+//           }
+//         });
+//       });
+
+//       if (result.affectedRows === 0) {
+//         return response.status(401).json({ error: "Can't checkout" });
+//       }
+//       console.log(result);
+//     }
+
+//     return response.json("tmam");
+//   } catch (error) {
+//     console.log("Error:", error);
+//     return response.status(401).json({ error: "Database error" });
+//   }
+// });
 
 app.post("/reserving", (request, response) => {
   const q = "update matches set reservedseats=? , vacantseats=? where id=? ";
