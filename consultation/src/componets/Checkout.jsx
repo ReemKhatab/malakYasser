@@ -1,5 +1,5 @@
 // Checkout.jsx
-import { React, useLocation } from "react";
+import { React, useLocation, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import PopUp from "../componets/PopUp.jsx";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const Checkout = ({
   matchid,
+  match,
   selectedSeats,
   creditCardData,
   handleChange,
@@ -16,17 +17,50 @@ const Checkout = ({
   modalShow,
   setModalShow,
 }) => {
-  const handleCheckout = (e) => {
-    setModalShow(true);
-    const username = localStorage.getItem("username");
-    selectedSeats.map((seat) => {
-      axios.post("http://localhost:8808/checkout", {
-        matchid: parseInt(matchid, 10),
-        seatid: seat,
-        reserved: 1,
-        username: username,
+  const [mytickets, setmytickets] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8808/tickets", {
+        params: { username: localStorage.getItem("username") },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setmytickets(response.data);
       });
-    });
+  },[]);
+  const handleCheckout = (e) => {
+    const username = localStorage.getItem("username");
+    const ticketscollision = mytickets.filter(
+      (ticket) => ((ticket.matchdate == match.matchdate)&&(ticket.id!=match.id))
+      );
+      if (ticketscollision.length == 0) {
+      setModalShow(true);
+      axios
+        .post("http://localhost:8808/checkout", {
+          matchid: parseInt(matchid, 10),
+          seats: selectedSeats,
+          reserved: 1,
+          username: username,
+        })
+        .then((response) => {
+          axios
+            .post("http://localhost:8808/reserving", {
+              matchid: parseInt(matchid, 10),
+              vacantseats: match.vacantseats - selectedSeats.length,
+              reservedseats: match.reservedseats + selectedSeats.length,
+            })
+            .then((response) => {
+              console.log("mostafa");
+            });
+        })
+        .catch(function (error) {
+          console.error("hadhagaz", error);
+          
+        });
+    }
+    else{
+      console.log("mahgztsh ")
+    }
   };
   const isCreditCardValid = () => {
     const creditCardRegex = /^[0-9]{16}$/;

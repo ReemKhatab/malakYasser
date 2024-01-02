@@ -8,7 +8,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 
 function NavBar() {
-
+  const username = localStorage.getItem("username");
   const log = localStorage.getItem("isLogged")
   const toggle = () => {
     localStorage.setItem("isLogged" , false)
@@ -25,8 +25,9 @@ function NavBar() {
             <Nav.Link href="/Matches">Home</Nav.Link>
             {(log === "true") ? <Nav.Link href="/" onClick={toggle}>Logout</Nav.Link> : <Nav.Link href="Signup">Sign Up</Nav.Link>}
             {(log === "true") && <Nav.Link href="/Cart">View Tickets</Nav.Link>}
-            {(log=="true")&&<Nav.Link className="profile" href="/Edituser"><AccountCircleRoundedIcon fontSize="large"/></Nav.Link>}
           </Nav>
+             {(log==="true")&&<Nav.Link  href="/Edituser">{username}</Nav.Link>}
+            {(log==="true")&&<Nav.Link  href="/Edituser"><AccountCircleRoundedIcon fontSize="large"/></Nav.Link>}
         </Navbar.Collapse>
       </Container>
     </Navbar>

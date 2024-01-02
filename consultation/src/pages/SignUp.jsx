@@ -72,13 +72,13 @@ function SignUp() {
           role: role,
         })
         .then((response) => {
-          console.log("testttt");
+          console.log("testttt signed up");
           console.log(response.data);
-          // setError("")
+          setError("")
           setModalShow(true);
         })
         .catch(function (error) {
-          console.error("Error adding stadium:", error);
+          console.error("error signing up", error);
           setError(error);
           setModalShow(true);
         });
@@ -220,13 +220,11 @@ function SignUp() {
               <FormLabel className="text-left"> Address </FormLabel>
               <FormControl
                 type="text"
-                placeholder="Enter Address"
+                placeholder="Enter Address (optional)"
                 name="address"
-                required
+                
               />
-              <Form.Control.Feedback type="invalid">
-                Required
-              </Form.Control.Feedback>
+              
             </FormGroup>
             <FormGroup className="mb-3 Formclass input-login" controlId="City">
               <FormLabel className="text-left"> City </FormLabel>

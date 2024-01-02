@@ -118,6 +118,7 @@ function ReserveTicket() {
         {displayCheckout && (
           <Checkout
             matchid={matchId}
+            match={matctdetails}
             selectedSeats={selectedSeats}
             creditCardData={creditCardData}
             modalShow={modalShow}

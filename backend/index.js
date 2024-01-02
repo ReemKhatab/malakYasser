@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysqlpassword8",
+  password: "Reem@2002=01",
   database: "projconsultation",
 });
 db.connect((err) => {
@@ -156,7 +156,7 @@ app.post("/users", (request, response) => {
     ],
     (error, result) => {
       if (error) {
-        console.log(error);
+        console.log("reem");
         return response.status(401).json({ error: "Can't signup " });
       }
       // if (result.length > 0) {
@@ -187,7 +187,7 @@ app.get("/edit", (request, response) => {
 });
 app.post("/edit", (request, response) => {
   const q =
-    "UPDATE projconsultation.users SET password=?, email=?,firstname=?,lastname=?,birthdate=?,city=?,address=? where username=?";
+    "UPDATE projconsultation.users SET password=?,firstname=?,lastname=?,birthdate=?,city=?,address=? where username=?";
   const username = request.body.username;
   const password = request.body.password;
   const firstName = request.body.firstName;
@@ -195,14 +195,13 @@ app.post("/edit", (request, response) => {
   const birthDate = request.body.birthDate;
   const address = request.body.address;
   const city = request.body.city;
-  const email = request.body.email;
   const gender = request.body.gender;
 
   console.log("VALUESSS", request.body, request.query.password);
 
   db.query(
     q,
-    [password, email, firstName, lastName, birthDate, city, address, username],
+    [password, firstName, lastName, birthDate, city, address, username],
     (error, result) => {
       if (error) console.log(error);
       console.log(result);
@@ -319,9 +318,10 @@ app.post("/EFA_manager/create_new_match/submit_match", (request, response) => {
 
 app.post("/EFA_manager/create_new_match/add_seat", (request, response) => {
   const q =
-    "INSERT INTO `projconsultation`.`seats` (`matchid`, `seatid`, `reserved`) VALUES (?, ?,?)";
+    "INSERT INTO `projconsultation`.`seats` (`matchid`, `seatid`, `reserved`,`ticketid`) VALUES (?, ?,?,LEFT(UUID(),8))";
   const matchid = request.body.matchid;
   const seatid = request.body.seatid;
+  //const ticketid = LEFT(UUID(),8);
   const reserved = 0;
   console.log("VALUESSS SEATT", request.body);
   db.query(q, [matchid, seatid, reserved], (error, result) => {
@@ -518,19 +518,52 @@ app.get("/view_matches", (request, response) => {
 
 app.post("/checkout", (request, response) => {
   const q =
-    "update seats set reserved=? , username=? where matchid=? && seatid=?";
+    "update seats set reserved=? , username=? where matchid=? && seatid=? && reserved=0";
   const reserved = request.body.reserved;
   const matchid = request.body.matchid;
-  const seatid = request.body.seatid;
+  const seats = request.body.seats;
   const username = request.body.username;
   console.log("checkkout", request.body);
-  db.query(q, [reserved, username, matchid, seatid], (error, result) => {
+  for (const seat of seats) {
+    db.query(q, [reserved, username, matchid, seat], (error, result) => {
+      if (error) {
+        console.log("errrrrrrrrrrrrrrrrrrr");
+        return response.status(401).json({ error: "error" });
+      }
+      console.log(result);
+    });
+  }
+  return response.json("tmam");
+});
+app.post("/reserving", (request, response) => {
+  const q = "update matches set reservedseats=? , vacantseats=? where id=? ";
+  const reservedseats = request.body.reservedseats;
+  const vacantseats = request.body.vacantseats;
+  const matchid = request.body.matchid;
+  console.log("reserved", request.body);
+  db.query(q, [reservedseats, vacantseats, matchid], (error, result) => {
     if (error) {
       return response.status(401).json({ error: "duplicate" });
     }
     console.log(result);
+    return result;
   });
 });
+
+app.post("/cancelling", (request, response) => {
+  const q =
+    "update matches set reservedseats= reservedseats-1, vacantseats=vacantseats+1 where id=? ";
+  const matchid = request.body.matchid;
+  console.log("reserved", request.body);
+  db.query(q, [matchid], (error, result) => {
+    if (error) {
+      return response.status(401).json({ error: "duplicate" });
+    }
+    console.log(result);
+    return result;
+  });
+});
+
 //E3MLO RETRIEVE LEL SEAT ID BY ORDER
 app.get("/tickets", (request, response) => {
   const q =
@@ -556,7 +589,7 @@ app.post("/cancelticket", (request, response) => {
       return response.status(401).json({ error: "duplicate" });
     }
     console.log("resultttt", result);
-    return result;
+    return response.json(result);
   });
 });
 

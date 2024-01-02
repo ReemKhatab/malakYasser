@@ -2,10 +2,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "../styles/Navbar.css";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
 function NavBar() {
-  const username=localStorage.getItem("username")
+  const username = localStorage.getItem("username");
   const toggle = () => {
     localStorage.setItem("isLogged", false);
     localStorage.setItem("username", "");
@@ -24,10 +24,11 @@ function NavBar() {
             <Nav.Link href="/" onClick={toggle}>
               Log Out
             </Nav.Link>
-            <Nav.Link className="profile" href="/Editmanager">
-              <AccountCircleRoundedIcon fontSize="large" />
-            </Nav.Link>
           </Nav>
+          <Nav.Link href="/Editmanager">{username}</Nav.Link>
+          <Nav.Link href="/Editmanager">
+            <AccountCircleRoundedIcon fontSize="large" />
+          </Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

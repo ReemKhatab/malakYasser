@@ -223,9 +223,10 @@ function SiteAdministrator() {
             </Button>
           </div>
         </div>
-        <div>
-          <InputGroup className="mb-3">
+        <div >
+          <InputGroup className="mb-3  ">
             <FormControl
+            
               placeholder="Search..."
               aria-label="Search..."
               aria-describedby="basic-addon2"

@@ -102,19 +102,7 @@ function Editadmin() {
                 onChange={handleChange}
               />
             </FormGroup>
-            <FormGroup className="mb-3 Formclass input-login">
-              <FormLabel className="text-left" > Email </FormLabel>
-              <FormControl
-                type="email"
-                placeholder="email"
-                name="email"
-                value={user.email}
-                required
-                onChange={handleChange}
-              />
-            </FormGroup>
-
-
+           
             <FormGroup className="mb-3 Formclass input-login">
               <FormLabel className="text-left" > Birthdate </FormLabel>
               <FormControl
@@ -133,7 +121,6 @@ function Editadmin() {
                 placeholder="Enter Address"
                 name="address"
                 value={user.address}
-                required
                 onChange={handleChange}
               />
             </FormGroup>

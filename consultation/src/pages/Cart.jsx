@@ -17,7 +17,7 @@ const Cart = () => {
   const [tickets, settickets] = useState([]);
   const [selectedtickets, setselectedtickets] = useState([]);
   const [modalShow, setModalShow] = useState(false);
-  const [selectedID, setselectedID] = useState();
+  const [selectedID, setselectedID] = useState({});
 
   const setDate = (date) => {
     const newdate = new Date(date);
@@ -39,19 +39,29 @@ const Cart = () => {
   const handleYes = (ticketid) => {
     console.log("ALOOOOOOOO");
     console.log(ticketid);
-    settickets(tickets.filter((ticket) => ticket.ticketid !== ticketid));
+    settickets(tickets.filter((ticket) => ticket.ticketid !== ticketid.ticketid));
     setModalShow(false);
     axios
       .post("http://localhost:8808/cancelticket", {
-        ticketid: ticketid,
+        ticketid: ticketid.ticketid,
       })
-      .then((response) => {})
+      .then((response) => {
+
+        axios
+      .post("http://localhost:8808/cancelling" , {
+        matchid: ticketid.id,
+      })
+      .then((response) => {
+        console.log("mostafa")
+      })
+
+      })
       .catch(function (error) {});
   };
-  const popup = (ticketid) => {
+  const popup = (ticket) => {
     console.log("reee");
     setModalShow(true);
-    setselectedID(ticketid);
+    setselectedID(ticket);
   };
 
   useEffect(() => {
@@ -90,7 +100,7 @@ const Cart = () => {
                     variant="primary"
                     type="submit"
                     onClick={() => {
-                      popup(ticket.ticketid);
+                      popup(ticket);
                     }}
                     hidden={disbaleCancel(ticket.matchdate)}
                   >

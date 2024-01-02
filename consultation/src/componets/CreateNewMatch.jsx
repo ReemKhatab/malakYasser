@@ -70,6 +70,7 @@ function CreateNewMatch() {
 
   const addSeatsToDB = (matchid, totalcapacity) => {
     for (let i = 1; i <= totalcapacity; i++) {
+     
       axios
         .post("http://localhost:8808/EFA_manager/create_new_match/add_seat", {
           matchid: matchid,
