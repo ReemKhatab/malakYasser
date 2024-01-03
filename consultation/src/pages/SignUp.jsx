@@ -138,6 +138,7 @@ function SignUp() {
                 name="firstName"
                 minLength={3}
                 maxLength={20}
+                pattern="^[A-Za-z]+$"
                 required
               />
               <Form.Control.Feedback type="invalid">
@@ -155,6 +156,7 @@ function SignUp() {
                 name="LastName"
                 minLength={3}
                 maxLength={20}
+                pattern="^[A-Za-z]+$"
                 required
               />
               <Form.Control.Feedback type="invalid">

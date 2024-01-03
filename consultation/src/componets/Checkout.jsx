@@ -101,7 +101,7 @@ const Checkout = ({
   };
   const isCardHolderNameValid = () => {
     // Check if the card holder name is not empty
-    return creditCardData.cardHolderName.trim() !== "";
+    return /^[A-Za-z\s]+$/.test(creditCardData.cardHolderName.trim());
   };
 
   return (
