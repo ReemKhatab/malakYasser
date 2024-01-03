@@ -66,6 +66,7 @@ function AddStadium() {
             name="stadiumname"
             value={stadiumData.stadiumname}
             onChange={handleChange}
+            pattern="^[A-Za-z]+$"
             required
           />
           <Form.Control.Feedback type="invalid">required</Form.Control.Feedback>

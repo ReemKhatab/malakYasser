@@ -368,11 +368,12 @@ function EditMatch() {
                 value={matchData.refree}
                 onChange={handleChange}
                 required
+                pattern="^[A-Za-z]+$"
                 minLength={3}
                 maxLength={20}
               />
               <Form.Control.Feedback type="invalid">
-                Refree name must be 5 - 20 characters
+                Refree name must be 3 - 20 characters
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -384,12 +385,13 @@ function EditMatch() {
                 name="lineman1"
                 value={matchData.lineman1}
                 onChange={handleChange}
+                pattern="^[A-Za-z]+$"
                 required
                 minLength={3}
                 maxLength={20}
               />
               <Form.Control.Feedback type="invalid">
-                Lineman name must be 5 - 20 characters
+                Lineman name must be 3 - 20 characters
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -401,12 +403,13 @@ function EditMatch() {
                 name="lineman2"
                 value={matchData.lineman2}
                 onChange={handleChange}
+                pattern="^[A-Za-z]+$"
                 minLength={3}
                 maxLength={20}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                Lineman name must be 5 - 20 characters
+                Lineman name must be 3 - 20 characters
               </Form.Control.Feedback>
             </Form.Group>
             <Button className="ButtonSubmit" variant="primary" type="submit">
