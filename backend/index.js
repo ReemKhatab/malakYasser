@@ -9,7 +9,7 @@ app.use(express.json()); //ashan a3raf a3ml post mn postman
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Bizo7245",
+  password: "Reem@2002=01",
   database: "projconsultation",
 });
 db.connect((err) => {
@@ -195,7 +195,7 @@ app.post("/edit", (request, response) => {
   const birthDate = request.body.birthDate;
   const address = request.body.address;
   const city = request.body.city;
-  const gender = request.body.gender;
+
 
   console.log("VALUESSS", request.body, request.query.password);
 

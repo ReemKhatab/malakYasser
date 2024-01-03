@@ -34,7 +34,7 @@ function CustomerMatchItem({ match }) {
     <>{
       !loading&&
       
-      <Card style={{ width: "28rem", margin:"2%" }}>
+      <Card style={{ width: "32rem", margin:"2%" }}>
         <Card.Body>
           <Card.Title text="primary">
             <img

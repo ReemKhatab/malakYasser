@@ -36,10 +36,9 @@ function Edit() {
       password: form[0].value,
       firstName: form[1].value,
       lastName: form[2].value,
-      email: form[3].value,
-      birthDate: form[4].value,
-      address: form[5].value,
-      city: form[6].value,
+      birthDate: form[3].value,
+      address: form[4].value,
+      city: form[5].value,
     };
 
     axios.post("http://localhost:8808/edit", values).then((response) => {

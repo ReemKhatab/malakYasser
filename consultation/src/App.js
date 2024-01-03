@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import ReserveTicket from "./pages/ReserveTicket";
 import Customer_ViewMatches from "./pages/Customer_ViewMatches";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
